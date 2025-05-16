@@ -42,11 +42,11 @@ When I'm not immersed in equations:
 ## YouTube Channels I Love  
 
 | Channel | Why I Love It |
-|---------|--------------|
-| Numberphile & 3Blue1Brown The Bright Side of Mathematics | Mind-bending math visuals |
+|-------------|--------------|
+| Numberphile & 3Blue1Brown & The Bright Side of Mathematics | Mind-bending math visuals |
 | Dr. Trefor Bazett | The GOAT himself |
 | MIT Open Course | Who needs netlix when you can watch Gilbert Strang|
-| James Hoffmann | Because coffee is math too |
+| James Hoffmann | Because coffee is a science |
 
 ## Fun Extras  
 
