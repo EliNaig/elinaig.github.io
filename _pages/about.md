@@ -50,11 +50,8 @@ When I'm not immersed in equations:
 
 ## Fun Extras  
 
-- **Plant jungle**: My workspace ([photo](#)) is half books, half succulents  
-- **Currently reading**: *Undergraduate Algebraic Geometry * (Miles Reid)
 
-![My workspace with plants and math books](path/to/your/photo.jpg)  
-*Where the magic happens—my cozy corner for math and greenery.*  
+- **Currently reading**: *Undergraduate Algebraic Geometry * (Miles Reid)
 
 ---
 
