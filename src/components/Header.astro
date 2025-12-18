@@ -16,20 +16,20 @@ function isActive(href: string) {
 
 <a
 	href="#content"
-	class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-zinc-900 focus:shadow"
+	class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-md focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-zinc-900 focus:shadow focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-zinc-50"
 >
 	Skip to content
 </a>
 
-<header class="border-b border-zinc-200 bg-white">
-	<div class="container flex items-center justify-between gap-6 py-4">
+<header class="sticky top-0 z-40 border-b border-zinc-200/80 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+	<div class="container flex items-center justify-between gap-6 py-3">
 		<nav class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm" aria-label="Primary navigation">
 			{nav.map((item) => (
 				<a
 					href={item.href}
 					class:list={[
-						"no-underline hover:underline",
-						isActive(item.href) ? "font-semibold text-zinc-950" : "text-zinc-700",
+						"no-underline decoration-zinc-300 underline-offset-4 hover:underline",
+						isActive(item.href) ? "font-semibold text-zinc-950 decoration-zinc-400" : "text-zinc-700",
 					]}
 				>
 					{item.label}

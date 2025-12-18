@@ -6,35 +6,37 @@ import { site } from "../../lib/site";
 <SiteLayout title="About">
 	<section class="mt-2">
 		<h1>About</h1>
-		<div class="prose mt-6 max-w-prose">
-			<p>
-				I’m a mathematics student at {site.affiliation} and an undergraduate researcher. My interests include
-				<strong> algebraic coding theory</strong>, <strong>algebraic geometry</strong>, and <strong>cryptography</strong>.
-			</p>
+		<div class="mt-6 max-w-2xl rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-sm">
+			<div class="prose max-w-none">
+				<p>
+					I’m a mathematics student at {site.affiliation} and an undergraduate researcher. My interests include
+					<strong> algebraic coding theory</strong>, <strong>algebraic geometry</strong>, and <strong>cryptography</strong>.
+				</p>
 
-			<h2>Research</h2>
-			<p>
-				I’m especially interested in problems where algebraic structure leads to efficient algorithms or concrete constructions
-				(e.g., error-correcting codes and post-quantum security). For a snapshot, see <a href="/research/">Research</a> and
-				<a href="/publications/">Publications</a>.
-			</p>
+				<h2>Research</h2>
+				<p>
+					I’m especially interested in problems where algebraic structure leads to efficient algorithms or concrete constructions
+					(e.g., error-correcting codes and post-quantum security). For a snapshot, see <a href="/research/">Research</a> and
+					<a href="/publications/">Publications</a>.
+				</p>
 
-			<h2>Current activities</h2>
-			<ul>
-				<li>Undergraduate research with <a href="https://www2.tulane.edu/~mcan/">Mahir Bilen Can</a></li>
-				<li>Coursework and seminars in pure and applied mathematics</li>
-				<li>Reproducible computational workflows (Python/R/LaTeX)</li>
-			</ul>
+				<h2>Current activities</h2>
+				<ul>
+					<li>Undergraduate research with <a href="https://www2.tulane.edu/~mcan/">Mahir Bilen Can</a></li>
+					<li>Coursework and seminars in pure and applied mathematics</li>
+					<li>Reproducible computational workflows (Python/R/LaTeX)</li>
+				</ul>
 
-			<h2>Links & contact</h2>
-			<ul>
-				<li>
-					CV: <a href="/ENCV.pdf">PDF</a> or <a href="/cv/">web version</a>
-				</li>
-				<li>Email: <a href={`mailto:${site.email}`}>{site.email}</a></li>
-				<li>GitHub: <a href={site.social.github}>@elinaig</a></li>
-				<li>LinkedIn: <a href={site.social.linkedin}>eli-naig</a></li>
-			</ul>
+				<h2>Links & contact</h2>
+				<ul>
+					<li>
+						CV: <a href="/ENCV.pdf">PDF</a> or <a href="/cv/">web version</a>
+					</li>
+					<li>Email: <a href={`mailto:${site.email}`}>{site.email}</a></li>
+					<li>GitHub: <a href={site.social.github}>@elinaig</a></li>
+					<li>LinkedIn: <a href={site.social.linkedin}>eli-naig</a></li>
+				</ul>
+			</div>
 		</div>
 	</section>
 </SiteLayout>
