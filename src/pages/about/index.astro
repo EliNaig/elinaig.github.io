@@ -1,0 +1,34 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { site } from "../../lib/site";
+---
+
+<SiteLayout title="About">
+	<section class="container mt-10 sm:mt-14">
+		<h1>About</h1>
+		<div class="prose mt-6 max-w-prose">
+			<p>
+				I’m a mathematics student at Tulane University with interests in <strong>algebraic coding theory</strong>,
+				<strong>algebraic geometry</strong>, and <strong>cryptography</strong>.
+			</p>
+
+			<h2>Current</h2>
+			<ul>
+				<li>Undergraduate research with <a href="https://www2.tulane.edu/~mcan/">Mahir Bilen Can</a></li>
+				<li>Coursework and seminar participation in pure and applied mathematics</li>
+				<li>Building reproducible computational workflows (Python/R) for math and data</li>
+			</ul>
+
+			<h2>Links</h2>
+			<ul>
+				<li>
+					CV: <a href="/ENCV.pdf">PDF</a> or <a href="/cv/">web version</a>
+				</li>
+				<li>Email: <a href={`mailto:${site.email}`}>{site.email}</a></li>
+				<li>GitHub: <a href={site.social.github}>@elinaig</a></li>
+				<li>LinkedIn: <a href={site.social.linkedin}>eli-naig</a></li>
+			</ul>
+		</div>
+	</section>
+</SiteLayout>
+

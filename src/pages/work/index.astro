@@ -1,0 +1,35 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import SectionCard from "../../components/SectionCard.astro";
+import WorkSubnav from "../../components/WorkSubnav.astro";
+---
+
+<SiteLayout title="Work" description="Publications, talks, teaching, and selected technical write-ups.">
+	<section class="container mt-10 sm:mt-14">
+		<h1>Work</h1>
+		<p class="mt-4 max-w-prose text-zinc-800">
+			A single place to browse research outputs and academic activities. Use the tabs below to jump between sections.
+		</p>
+
+		<WorkSubnav />
+
+		<div class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+			<SectionCard
+				title="Publications"
+				description="Preprints, papers, and write-ups."
+				href="/publications/"
+			/>
+			<SectionCard
+				title="Talks"
+				description="Talks, posters, and seminar presentations (with slides when available)."
+				href="/talks/"
+			/>
+			<SectionCard
+				title="Teaching"
+				description="Courses, sections, and instructional work."
+				href="/teaching/"
+			/>
+		</div>
+	</section>
+</SiteLayout>
+

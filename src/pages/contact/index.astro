@@ -1,0 +1,21 @@
+---
+import SiteLayout from "../../layouts/SiteLayout.astro";
+import { site } from "../../lib/site";
+---
+
+<SiteLayout title="Contact">
+	<section class="container mt-10 sm:mt-14">
+		<h1>Contact</h1>
+		<div class="prose mt-6 max-w-prose">
+			<p>
+				The best way to reach me is email:
+				<a href={`mailto:${site.email}`}>{site.email}</a>.
+			</p>
+			<p>
+				If you’re writing about research, it helps to include a sentence or two on what you’re working on and what you
+				have in mind (question, collaboration, reading group, etc.).
+			</p>
+		</div>
+	</section>
+</SiteLayout>
+

@@ -1,0 +1,91 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    color-scheme: light;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-zinc-50 text-zinc-900 antialiased;
+  }
+
+  ::selection {
+    @apply bg-sky-200 text-zinc-950;
+  }
+
+  a {
+    @apply underline decoration-zinc-300 underline-offset-4;
+  }
+
+  a:hover {
+    @apply decoration-zinc-500;
+  }
+
+  a:focus-visible {
+    @apply outline-none ring-2 ring-sky-400 ring-offset-2 ring-offset-zinc-50;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-serif tracking-tight text-zinc-950;
+  }
+
+  h1 {
+    @apply text-3xl sm:text-4xl;
+  }
+
+  h2 {
+    @apply text-2xl sm:text-3xl;
+  }
+
+  h3 {
+    @apply text-xl sm:text-2xl;
+  }
+
+  p {
+    @apply leading-7 text-zinc-800;
+  }
+
+  hr {
+    @apply border-zinc-200;
+  }
+
+  code {
+    @apply rounded bg-zinc-100 px-1 py-0.5 text-[0.9em] text-zinc-900;
+  }
+}
+
+@layer components {
+  .container {
+    @apply mx-auto w-full max-w-5xl px-4;
+  }
+
+  .prose {
+    @apply text-[15.5px] leading-7 text-zinc-800;
+  }
+
+  .prose > * + * {
+    @apply mt-4;
+  }
+
+  .prose ul {
+    @apply list-disc pl-5;
+  }
+
+  .prose ol {
+    @apply list-decimal pl-5;
+  }
+
+  .prose li {
+    @apply mt-2;
+  }
+
+  .prose blockquote {
+    @apply border-l-2 border-zinc-300 pl-4 text-zinc-700;
+  }
+}

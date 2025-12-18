@@ -1,0 +1,40 @@
+---
+import { site } from "../lib/site";
+
+const links = [
+	{ label: "Email", href: `mailto:${site.email}` },
+	{ label: "GitHub", href: site.social.github },
+	{ label: "LinkedIn", href: site.social.linkedin },
+	{ label: "YouTube", href: site.social.youtube },
+] as const;
+---
+
+<footer class="border-t border-zinc-200 bg-zinc-50">
+	<div class="container py-10">
+		<div class="grid gap-6 sm:grid-cols-2">
+			<div>
+				<p class="font-serif text-lg font-semibold text-zinc-950">{site.name}</p>
+				<p class="mt-2 text-sm text-zinc-700">
+					{site.affiliation} <span class="text-zinc-400">•</span> {site.location}
+				</p>
+			</div>
+			<div class="sm:text-right">
+				<p class="text-sm font-medium text-zinc-900">Contact</p>
+				<ul class="mt-2 space-y-1 text-sm text-zinc-700">
+					{links.map((l) => (
+						<li>
+							<a class="no-underline" href={l.href} rel="me">
+								{l.label}
+							</a>
+						</li>
+					))}
+				</ul>
+			</div>
+		</div>
+
+		<p class="mt-8 text-xs text-zinc-500">
+			© {new Date().getFullYear()} {site.name}. Built with Astro.
+		</p>
+	</div>
+</footer>
+
