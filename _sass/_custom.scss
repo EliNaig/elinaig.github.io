@@ -1,0 +1,39 @@
+/* ==========================================================================
+   Site-specific tweaks (personalization)
+   ========================================================================== */
+
+/* Make headings feel slightly more academic */
+h1, h2, h3 {
+  font-family: $header-font-family;
+  letter-spacing: -0.01em;
+}
+
+/* Subtle, consistent link styling */
+a {
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.14em;
+}
+
+/* Feature cards on the homepage */
+.feature__wrapper {
+  margin-top: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+.feature__item .archive__item {
+  border: 1px solid $border-color;
+  border-radius: $border-radius;
+  padding: 1rem;
+  background: $background-color;
+  box-shadow: none;
+}
+
+.feature__item .archive__item-title {
+  margin-top: 0;
+}
+
+/* Sidebar name matches heading style */
+.sidebar .author__name {
+  font-family: $header-font-family;
+}
+
