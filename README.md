@@ -2,13 +2,13 @@
 
 This folder contains the rebuilt version of the site using Astro + Tailwind, designed to be fast, typographically clean, and easy to maintain.
 
-The current Jekyll site still lives at the repository root; we’re keeping it intact while the new site is reviewed.
+The legacy Jekyll-based site has been archived under `archive/legacy-jekyll/`.
 
 ## Quick Start
 
-From `astro/`:
+From the repository root:
 
-- Install: `npm install`
+- Install: `npm ci`
 - Dev server: `npm run dev` (defaults to `http://localhost:4321`)
 - Production build: `npm run build`
 - Preview build: `npm run preview`

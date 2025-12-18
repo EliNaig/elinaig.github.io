@@ -1,6 +1,5 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import WorkSubnav from "../../components/WorkSubnav.astro";
 import { getCollection } from "astro:content";
 
 const tag = Astro.url.searchParams.get("tag") ?? "";
@@ -22,18 +21,16 @@ const filtered = tag ? entries.filter((e) => (e.data.tags ?? []).includes(tag)) 
 ---
 
 <SiteLayout title="Projects" description="Selected technical write-ups and code-based work.">
-	<section class="container mt-10 sm:mt-14">
+	<section class="mt-2">
 		<h1>Projects</h1>
 		<p class="mt-4 max-w-prose text-zinc-800">
 			Technical write-ups and code-based work. Use tags to quickly filter.
 		</p>
 
-		<WorkSubnav />
-
 		<div class="mt-6 flex flex-wrap items-center gap-2">
-			<a class={tag === "" ? "pill border-indigo-300 bg-indigo-50" : "pill"} href="/projects/">All</a>
+			<a class={tag === "" ? "pill border-sky-300 bg-sky-50" : "pill"} href="/projects/">All</a>
 			{allTags.map((t) => (
-				<a class={tag === t ? "pill border-indigo-300 bg-indigo-50" : "pill"} href={`/projects/?tag=${encodeURIComponent(t)}`}>{t}</a>
+				<a class={tag === t ? "pill border-sky-300 bg-sky-50" : "pill"} href={`/projects/?tag=${encodeURIComponent(t)}`}>{t}</a>
 			))}
 		</div>
 

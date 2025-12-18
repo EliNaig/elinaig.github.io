@@ -4,11 +4,8 @@ import { site } from "../lib/site";
 const pathname = Astro.url.pathname;
 
 const nav = [
-	{ href: "/", label: "Home" },
-	{ href: "/about/", label: "About" },
-	{ href: "/work/", label: "Work" },
+	{ href: "/", label: `${site.name}'s Homepage` },
 	{ href: "/cv/", label: "CV" },
-	{ href: "/contact/", label: "Contact" },
 ] as const;
 
 function isActive(href: string) {
@@ -24,66 +21,20 @@ function isActive(href: string) {
 	Skip to content
 </a>
 
-<header class="sticky top-0 z-40 border-b border-zinc-200 bg-zinc-50/80 backdrop-blur">
-	<div class="container flex items-center justify-between gap-6 py-3">
-		<a class="no-underline" href="/">
-			<span class="font-serif text-lg font-semibold tracking-tight text-zinc-950">{site.name}</span>
-		</a>
-
-		<nav class="hidden items-center gap-5 text-sm text-zinc-800 md:flex" aria-label="Primary navigation">
-			{
-				nav.map((item) => (
-					<a
-						href={item.href}
-						class:list={[
-							"no-underline decoration-indigo-200 underline-offset-4 hover:decoration-indigo-400",
-							isActive(item.href) ? "text-zinc-950 underline decoration-indigo-400" : "text-zinc-700",
-						]}
-					>
-						{item.label}
-					</a>
-				))
-			}
+<header class="border-b border-zinc-200 bg-white">
+	<div class="container flex items-center justify-between gap-6 py-4">
+		<nav class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm" aria-label="Primary navigation">
+			{nav.map((item) => (
+				<a
+					href={item.href}
+					class:list={[
+						"no-underline hover:underline",
+						isActive(item.href) ? "font-semibold text-zinc-950" : "text-zinc-700",
+					]}
+				>
+					{item.label}
+				</a>
+			))}
 		</nav>
-
-		<div class="flex items-center gap-3">
-			<a
-				class="btn-secondary hidden md:inline-flex"
-				href={`mailto:${site.email}`}
-			>
-				Email
-			</a>
-
-			<details class="md:hidden">
-			<summary
-				class="cursor-pointer list-none rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-900"
-			>
-				Menu
-			</summary>
-			<div class="absolute right-4 mt-2 w-56 rounded-xl border border-zinc-200 bg-white p-2 shadow">
-				<nav class="grid gap-1 text-sm" aria-label="Mobile navigation">
-					<a
-						href={`mailto:${site.email}`}
-						class="rounded-md px-3 py-2 no-underline hover:bg-zinc-50 text-zinc-700"
-					>
-						Email
-					</a>
-					{
-						nav.map((item) => (
-							<a
-								href={item.href}
-								class:list={[
-									"rounded-md px-3 py-2 no-underline hover:bg-zinc-50",
-									isActive(item.href) ? "bg-zinc-50 font-medium text-zinc-950" : "text-zinc-700",
-								]}
-							>
-								{item.label}
-							</a>
-						))
-					}
-				</nav>
-			</div>
-			</details>
-		</div>
 	</div>
 </header>

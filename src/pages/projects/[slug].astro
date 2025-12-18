@@ -1,6 +1,5 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import WorkSubnav from "../../components/WorkSubnav.astro";
 import { getCollection } from "astro:content";
 
 export async function getStaticPaths() {
@@ -19,7 +18,7 @@ const { Content } = await entry.render();
 ---
 
 <SiteLayout title={entry.data.title} description={entry.data.summary ?? undefined}>
-	<section class="container mt-10 sm:mt-14">
+	<section class="mt-2">
 		<div class="max-w-prose">
 			<p class="text-sm text-zinc-600">
 				<a class="no-underline hover:underline" href="/projects/">Projects</a>
@@ -28,10 +27,6 @@ const { Content } = await entry.render();
 			</p>
 			<h1 class="mt-2">{entry.data.title}</h1>
 			{entry.data.summary ? <p class="mt-3 text-zinc-800">{entry.data.summary}</p> : null}
-		</div>
-
-		<div class="mt-6">
-			<WorkSubnav />
 		</div>
 
 		<article class="prose mt-8 max-w-prose">

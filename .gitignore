@@ -4,3 +4,5 @@ dist/
 .astro/
 .DS_Store
 
+# Local archive of legacy site
+archive/

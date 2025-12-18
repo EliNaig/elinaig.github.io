@@ -5,10 +5,10 @@ export const site = {
 	email: "enaig@tulane.edu",
 	location: "St. Louis, MO",
 	affiliation: "Tulane University",
+	profileImage: "/images/EliSG.png",
 	social: {
 		github: "https://github.com/elinaig",
 		linkedin: "https://www.linkedin.com/in/eli-naig/",
 		youtube: "https://www.youtube.com/@elicoe9964",
 	},
 } as const;
-

@@ -10,41 +10,41 @@
   }
 
   body {
-    @apply bg-zinc-50 text-zinc-900 antialiased;
+    @apply bg-white text-zinc-900 antialiased;
   }
 
   ::selection {
-    @apply bg-indigo-200 text-zinc-950;
+    @apply bg-sky-200 text-zinc-950;
   }
 
   a {
-    @apply underline decoration-indigo-200 underline-offset-4;
+    @apply text-sky-700 underline decoration-sky-200 underline-offset-4;
   }
 
   a:hover {
-    @apply decoration-indigo-400;
+    @apply text-sky-800 decoration-sky-400;
   }
 
   a:focus-visible {
-    @apply outline-none ring-2 ring-indigo-400 ring-offset-2 ring-offset-zinc-50;
+    @apply outline-none ring-2 ring-sky-500 ring-offset-2 ring-offset-white;
   }
 
   h1,
   h2,
   h3 {
-    @apply font-serif tracking-tight text-zinc-950;
+    @apply tracking-tight text-zinc-950;
   }
 
   h1 {
-    @apply text-3xl sm:text-4xl;
+    @apply text-3xl font-semibold;
   }
 
   h2 {
-    @apply text-2xl sm:text-3xl;
+    @apply text-2xl font-semibold;
   }
 
   h3 {
-    @apply text-xl sm:text-2xl;
+    @apply text-xl font-semibold;
   }
 
   p {
@@ -63,20 +63,19 @@
 @layer components {
 
   .btn-primary {
-    @apply inline-flex items-center justify-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-medium text-white no-underline shadow-sm transition hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50;
+    @apply inline-flex items-center justify-center rounded-md bg-slate-900 px-4 py-2 text-sm font-medium text-white no-underline shadow-sm transition hover:bg-slate-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-md border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-900 no-underline shadow-sm transition hover:border-zinc-300 hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-50;
+    @apply inline-flex items-center justify-center rounded-md border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-900 no-underline shadow-sm transition hover:border-zinc-300 hover:bg-zinc-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white;
   }
 
   .pill {
     @apply inline-flex items-center rounded-full border border-zinc-200 bg-white px-2.5 py-1 text-xs font-medium text-zinc-800 no-underline hover:border-zinc-300 hover:bg-zinc-50;
   }
 
-
   .container {
-    @apply mx-auto w-full max-w-5xl px-4;
+    @apply mx-auto w-full max-w-6xl px-4;
   }
 
   .prose {
@@ -101,5 +100,17 @@
 
   .prose blockquote {
     @apply border-l-2 border-zinc-300 pl-4 text-zinc-700;
+  }
+
+  .prose table {
+    @apply w-full border-collapse text-sm;
+  }
+
+  .prose th {
+    @apply border border-zinc-200 bg-zinc-50 px-3 py-2 text-left font-semibold text-zinc-900;
+  }
+
+  .prose td {
+    @apply border border-zinc-200 px-3 py-2 align-top;
   }
 }
