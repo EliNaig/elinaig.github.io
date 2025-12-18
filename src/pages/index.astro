@@ -1,12 +1,24 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import SectionCard from "../components/SectionCard.astro";
+import { getCollection } from "astro:content";
 import { site } from "../lib/site";
+
+let projects = [];
+try {
+	projects = await getCollection("projects");
+} catch {
+	projects = [];
+}
+projects = projects.filter((p) => !p.data.draft);
+projects.sort((a, b) => (b.data.date?.valueOf?.() ?? 0) - (a.data.date?.valueOf?.() ?? 0));
+const featured = projects.filter((p) => p.data.selected);
+const topProjects = (featured.length ? featured : projects).slice(0, 3);
 ---
 
 <SiteLayout title="Home" description={site.description}>
 	<section class="container mt-10 sm:mt-14">
-		<div class="grid gap-8 md:grid-cols-[1fr_auto] md:items-start">
+		<div class="grid gap-10 md:grid-cols-[1fr_auto] md:items-start">
 			<div>
 				<p class="text-sm font-medium tracking-wide text-zinc-700">
 					Mathematics student • Undergraduate researcher
@@ -15,35 +27,39 @@ import { site } from "../lib/site";
 				<p class="mt-4 max-w-prose text-base leading-7 text-zinc-800">
 					{site.description}
 				</p>
+
 				<div class="mt-6 flex flex-wrap items-center gap-3">
-					<a
-						class="inline-flex items-center justify-center rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-zinc-50 no-underline hover:bg-zinc-800"
-						href="/cv/"
-					>
-						View CV
-					</a>
-					<a
-						class="inline-flex items-center justify-center rounded-md border border-zinc-300 bg-zinc-50 px-4 py-2 text-sm font-medium text-zinc-900 no-underline hover:bg-white"
-						href={`mailto:${site.email}`}
-					>
-						Email
-					</a>
+					<a class="btn-primary" href="/cv/">View CV</a>
+					<a class="btn-secondary" href="/work/">See work</a>
+					<a class="btn-secondary" href="/contact/">Contact</a>
 				</div>
 			</div>
 
-			<aside class="rounded-xl border border-zinc-200 bg-white p-5 shadow-sm">
-				<img
-					src="/images/profile.png"
-					alt="Portrait of Eli Naig"
-					loading="lazy"
-					class="h-24 w-24 rounded-full border border-zinc-200 object-cover"
-				/>
-				<p class="mt-4 text-sm font-medium text-zinc-900">Quick links</p>
+			<aside class="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+				<div class="flex items-center gap-4">
+					<img
+						src="/images/profile.png"
+						alt="Portrait of Eli Naig"
+						loading="lazy"
+						class="h-24 w-24 rounded-full border border-zinc-200 object-cover"
+					/>
+					<div>
+						<p class="text-sm font-semibold text-zinc-950">{site.name}</p>
+						<p class="mt-1 text-sm text-zinc-700">{site.affiliation}</p>
+						<p class="text-sm text-zinc-700">{site.location}</p>
+					</div>
+				</div>
+
+				<p class="mt-5 text-xs font-semibold uppercase tracking-wide text-zinc-600">Quick links</p>
 				<ul class="mt-3 space-y-2 text-sm text-zinc-800">
-					<li><a class="no-underline" href="/about/">About</a></li>
-					<li><a class="no-underline" href="/research/">Research</a></li>
-					<li><a class="no-underline" href="/work/">Work</a></li>
-					<li><a class="no-underline" href="/cv/">CV</a> <span class="text-zinc-500">/</span> <a class="no-underline" href="/ENCV.pdf">PDF</a></li>
+					<li><a class="no-underline hover:underline" href="/about/">About</a></li>
+					<li><a class="no-underline hover:underline" href="/research/">Research</a></li>
+					<li><a class="no-underline hover:underline" href="/projects/">Projects</a></li>
+					<li>
+						<a class="no-underline hover:underline" href="/cv/">CV</a>
+						<span class="text-zinc-300">/</span>
+						<a class="no-underline hover:underline" href="/ENCV.pdf">PDF</a>
+					</li>
 				</ul>
 			</aside>
 		</div>
@@ -56,29 +72,73 @@ import { site } from "../lib/site";
 				description="Interests and current projects in algebraic coding theory, algebraic geometry, and cryptography."
 				href="/research/"
 			/>
-			<SectionCard
-				title="Work"
-				description="Publications, talks, and teaching — organized in one place."
-				href="/work/"
-			/>
+			<SectionCard title="Projects" description="Selected technical write-ups and code-based work." href="/projects/" />
 			<SectionCard title="CV" description="Education, experience, and skills." href="/cv/" />
 		</div>
+	</section>
+
+	<section class="container mt-12 sm:mt-16">
+		<div class="flex items-end justify-between gap-6">
+			<div>
+				<h2 class="text-2xl">Selected work</h2>
+				<p class="mt-2 max-w-prose text-sm text-zinc-700">
+					A few recent projects and write-ups. See everything on the <a href="/projects/">Projects</a> page.
+				</p>
+			</div>
+			<a class="btn-secondary hidden sm:inline-flex" href="/projects/">View all</a>
+		</div>
+
+		{topProjects.length === 0 ? (
+			<p class="mt-6 text-zinc-700">
+				No projects published yet. Add Markdown files in <code>src/content/projects</code> and set <code>draft: false</code>.
+			</p>
+		) : (
+			<div class="mt-6 grid gap-4 lg:grid-cols-3">
+				{topProjects.map((p) => (
+					<article class="rounded-2xl border border-zinc-200 bg-white p-6 shadow-sm">
+						<h3 class="text-lg font-semibold leading-6">
+							<a class="no-underline hover:underline" href={`/projects/${p.slug}/`}>{p.data.title}</a>
+						</h3>
+						<p class="mt-2 text-sm leading-6 text-zinc-700">{p.data.summary}</p>
+
+						{p.data.tags?.length ? (
+							<div class="mt-4 flex flex-wrap gap-2">
+								{p.data.tags.slice(0, 4).map((t) => (
+									<a class="pill" href={`/projects/?tag=${encodeURIComponent(t)}`}>{t}</a>
+								))}
+							</div>
+						) : null}
+
+						<div class="mt-5 flex flex-wrap gap-3 text-sm">
+							<a class="no-underline hover:underline" href={`/projects/${p.slug}/`}>Read</a>
+							{p.data.links?.code ? (
+								<a class="no-underline hover:underline" href={p.data.links.code} target="_blank" rel="noreferrer">Code</a>
+							) : null}
+							{p.data.links?.paper ? (
+								<a class="no-underline hover:underline" href={p.data.links.paper} target="_blank" rel="noreferrer">Paper</a>
+							) : null}
+							{p.data.links?.demo ? (
+								<a class="no-underline hover:underline" href={p.data.links.demo} target="_blank" rel="noreferrer">Demo</a>
+							) : null}
+						</div>
+					</article>
+				))}
+			</div>
+		)}
+
+		<a class="btn-secondary mt-6 inline-flex sm:hidden" href="/projects/">View all projects</a>
 	</section>
 
 	<section class="container mt-12 sm:mt-16">
 		<h2 class="text-2xl">About</h2>
 		<div class="prose mt-4 max-w-prose">
 			<p>
-				I’m a mathematics student at Tulane University with interests in <strong>algebraic coding theory</strong>,
-				<strong>algebraic geometry</strong>, and <strong>cryptography</strong>. I enjoy research problems that connect
-				abstract structure to computation and applications.
+				I’m a mathematics student at Tulane University with interests in
+				<strong> algebraic coding theory</strong>, <strong>algebraic geometry</strong>, and <strong>cryptography</strong>.
+				I enjoy research problems that connect abstract structure to computation and applications.
 			</p>
 			<p>
-				Read a bit more on the <a href="/research/">Research</a> page, or see the full <a href="/cv/">CV</a>.
-			</p>
-			<p>
-				If you’d like to connect about research, reading groups, or summer opportunities, feel free to email me at
-				<a href={`mailto:${site.email}`}>{site.email}</a>.
+				Read more on the <a href="/about/">About</a> page, or browse <a href="/work/">work and activities</a>.
 			</p>
 		</div>
 	</section>

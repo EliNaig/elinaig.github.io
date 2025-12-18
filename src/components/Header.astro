@@ -6,9 +6,9 @@ const pathname = Astro.url.pathname;
 const nav = [
 	{ href: "/", label: "Home" },
 	{ href: "/about/", label: "About" },
-	{ href: "/research/", label: "Research" },
 	{ href: "/work/", label: "Work" },
 	{ href: "/cv/", label: "CV" },
+	{ href: "/contact/", label: "Contact" },
 ] as const;
 
 function isActive(href: string) {
@@ -36,8 +36,8 @@ function isActive(href: string) {
 					<a
 						href={item.href}
 						class:list={[
-							"no-underline decoration-zinc-300 underline-offset-4 hover:decoration-zinc-500",
-							isActive(item.href) ? "text-zinc-950 underline decoration-zinc-400" : "text-zinc-700",
+							"no-underline decoration-indigo-200 underline-offset-4 hover:decoration-indigo-400",
+							isActive(item.href) ? "text-zinc-950 underline decoration-indigo-400" : "text-zinc-700",
 						]}
 					>
 						{item.label}
@@ -48,7 +48,7 @@ function isActive(href: string) {
 
 		<div class="flex items-center gap-3">
 			<a
-				class="hidden rounded-md border border-zinc-300 bg-white px-3 py-1.5 text-sm font-medium text-zinc-900 no-underline hover:bg-zinc-50 md:inline-flex"
+				class="btn-secondary hidden md:inline-flex"
 				href={`mailto:${site.email}`}
 			>
 				Email

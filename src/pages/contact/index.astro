@@ -3,19 +3,22 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 import { site } from "../../lib/site";
 ---
 
-<SiteLayout title="Contact">
+<SiteLayout title="Contact" description={`How to reach ${site.name}.`}>
 	<section class="container mt-10 sm:mt-14">
 		<h1>Contact</h1>
 		<div class="prose mt-6 max-w-prose">
 			<p>
-				The best way to reach me is email:
-				<a href={`mailto:${site.email}`}>{site.email}</a>.
+				The fastest way to reach me is by email.
 			</p>
+			<ul>
+				<li>Email: <a href={`mailto:${site.email}`}>{site.email}</a></li>
+				{site.social?.github ? <li>GitHub: <a href={site.social.github}>{site.social.github}</a></li> : null}
+				{site.social?.linkedin ? <li>LinkedIn: <a href={site.social.linkedin}>{site.social.linkedin}</a></li> : null}
+			</ul>
 			<p>
-				If you’re writing about research, it helps to include a sentence or two on what you’re working on and what you
-				have in mind (question, collaboration, reading group, etc.).
+				If you’re reaching out about research, a reading group, or a collaboration, it helps to include a couple of sentences
+				about context and timeline.
 			</p>
 		</div>
 	</section>
 </SiteLayout>
-
