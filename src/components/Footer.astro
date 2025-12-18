@@ -1,0 +1,16 @@
+---
+import { site } from "../lib/site";
+
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-16 border-t border-zinc-200 bg-white">
+	<div class="container py-8 text-sm text-zinc-600">
+		<div class="flex flex-wrap items-center justify-between gap-4">
+			<p>© {year} {site.name}</p>
+			<p>
+				<a class="no-underline hover:underline" href={`mailto:${site.email}`}>{site.email}</a>
+			</p>
+		</div>
+	</div>
+</footer>

@@ -1,0 +1,50 @@
+---
+import { site } from "../lib/site";
+---
+
+<aside class="lg:sticky lg:top-20">
+	<div class="flex items-start gap-4 lg:flex-col lg:gap-6">
+		<img
+			src={site.profileImage ?? "/images/profile.png"}
+			alt={`Portrait of ${site.name}`}
+			loading="lazy"
+			class="h-32 w-32 shrink-0 rounded-full border border-zinc-200 object-cover lg:h-60 lg:w-44"
+		/>
+
+		<div class="min-w-0">
+			<p class="text-lg font-semibold text-zinc-950">{site.name}</p>
+			<p class="mt-1 text-sm text-zinc-700">
+				Mathematics student • Undergraduate researcher
+			</p>
+
+			<dl class="mt-4 space-y-2 text-sm text-zinc-800">
+				<div class="flex gap-2">
+					<dt class="text-zinc-500">Location</dt>
+					<dd class="min-w-0 truncate">{site.location}</dd>
+				</div>
+				<div class="flex gap-2">
+					<dt class="text-zinc-500">Affiliation</dt>
+					<dd class="min-w-0 truncate">{site.affiliation}</dd>
+				</div>
+				<div class="flex gap-2">
+					<dt class="text-zinc-500">Email</dt>
+					<dd class="min-w-0 truncate">
+						<a href={`mailto:${site.email}`}>{site.email}</a>
+					</dd>
+				</div>
+			</dl>
+
+			<ul class="mt-4 space-y-1 text-sm">
+				{site.social.github ? (
+					<li><a href={site.social.github} target="_blank" rel="noreferrer">GitHub</a></li>
+				) : null}
+				{site.social.linkedin ? (
+					<li><a href={site.social.linkedin} target="_blank" rel="noreferrer">LinkedIn</a></li>
+				) : null}
+				{site.social.youtube ? (
+					<li><a href={site.social.youtube} target="_blank" rel="noreferrer">YouTube</a></li>
+				) : null}
+			</ul>
+		</div>
+	</div>
+</aside>

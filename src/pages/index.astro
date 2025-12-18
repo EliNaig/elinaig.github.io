@@ -1,0 +1,114 @@
+---
+import SiteLayout from "../layouts/SiteLayout.astro";
+import { getCollection } from "astro:content";
+import { site } from "../lib/site";
+
+let projects = [];
+try {
+	projects = await getCollection("projects");
+} catch {
+	projects = [];
+}
+projects = projects.filter((p) => !p.data.draft);
+projects.sort((a, b) => (b.data.date?.valueOf?.() ?? 0) - (a.data.date?.valueOf?.() ?? 0));
+const featured = projects.filter((p) => p.data.selected);
+const topProjects = (featured.length ? featured : projects).slice(0, 3);
+---
+
+<SiteLayout title="Home" description={site.description}>
+	<section class="prose max-w-none">
+		<h1>About me</h1>
+		<p>
+			Hello! I’m {site.name}, a mathematics student at {site.affiliation} who sees math as more than a subject—it’s a lens through
+			which I uncover patterns in everything, from the physics of climbing ropes to the geometry of ski slopes. Like Feynman, I’m
+			driven by the urgency of discovery: <em>“I was born not knowing and have had only a little time to change that here and there.”</em>
+		</p>
+
+		<h2>Current focus</h2>
+		<ul>
+			<li>Working under <a href="https://www2.tulane.edu/~mcan/">Mahir Bilen Can</a> as an undergraduate researcher (algebraic coding theory)</li>
+			<li>Exploring seminars and connecting with faculty/graduate students</li>
+		</ul>
+
+		<h2>Strengths</h2>
+		<ul>
+			<li><strong>Independent learning:</strong> Currently reading <em>Undergraduate Algebraic Geometry</em> (Miles Reid)</li>
+			<li><strong>Teaching:</strong> Lead study groups; enjoy breaking down complex proofs and sharing ideas</li>
+		</ul>
+
+		<h2>Hobbies &amp; adventures</h2>
+		<p>When I’m not immersed in equations:</p>
+		<ul>
+			<li><strong>Rock climbing</strong> (knot theory in action)</li>
+			<li><strong>Coffee</strong> (optimizing extraction variables)</li>
+			<li><strong>Reading</strong></li>
+			<li><strong>Skiing</strong> (contour maps)</li>
+			<li><strong>Canoeing</strong> (fluid dynamics)</li>
+			<li><strong>Travel</strong> (especially to mountains with good coffee shops)</li>
+		</ul>
+
+		<h2>YouTube channels I love</h2>
+		<table>
+			<thead>
+				<tr>
+					<th scope="col">Channel</th>
+					<th scope="col">Why I love it</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Numberphile &amp; 3Blue1Brown</td>
+					<td>Mind-bending math visuals</td>
+				</tr>
+				<tr>
+					<td>Dr. Trefor Bazett</td>
+					<td>The GOAT himself</td>
+				</tr>
+				<tr>
+					<td>MIT OpenCourseWare</td>
+					<td>Who needs Netflix when you can watch Gilbert Strang</td>
+				</tr>
+				<tr>
+					<td>James Hoffmann</td>
+					<td>Because coffee is a science</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<h2>Fun extras</h2>
+		<ul>
+			<li><strong>Currently reading:</strong> <em>Undergraduate Algebraic Geometry</em> (Miles Reid)</li>
+		</ul>
+
+		<blockquote>
+			<p>
+				<em>“Like a river’s current, I follow where curiosity leads—pursuing rigorous research while sharing the beauty I find along the way.”</em>
+				, {site.name}.
+			</p>
+		</blockquote>
+
+		<h2>Selected work</h2>
+		{topProjects.length === 0 ? (
+			<p>
+				No projects published yet. Add Markdown files in <code>src/content/projects</code> and set <code>draft: false</code>.
+			</p>
+		) : (
+			<ul>
+				{topProjects.map((p) => (
+					<li>
+						<a href={`/projects/${p.slug}/`}>{p.data.title}</a>
+						{p.data.summary ? <div class="text-zinc-700">{p.data.summary}</div> : null}
+					</li>
+				))}
+			</ul>
+		)}
+
+		<h2>Links</h2>
+		<ul>
+			<li><a href="/research/">Research</a></li>
+			<li><a href="/projects/">Projects</a></li>
+			<li><a href="/publications/">Publications</a></li>
+			<li><a href="/cv/">CV</a> (<a href="/ENCV.pdf">PDF</a>)</li>
+		</ul>
+	</section>
+</SiteLayout>
