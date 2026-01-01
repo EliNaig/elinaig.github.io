@@ -9,6 +9,5 @@ export const site = {
 	social: {
 		github: "https://github.com/elinaig",
 		linkedin: "https://www.linkedin.com/in/eli-naig/",
-		youtube: "https://www.youtube.com/@elicoe9964",
 	},
 } as const;
