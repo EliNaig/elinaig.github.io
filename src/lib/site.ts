@@ -9,5 +9,6 @@ export const site = {
 	social: {
 		github: "https://github.com/elinaig",
 		linkedin: "https://www.linkedin.com/in/eli-naig/",
+		orcid: "https://orcid.org/0009-0003-9324-2382",
 	},
 } as const;
