@@ -1,20 +1,6 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
-import { getCollection, type CollectionEntry } from "astro:content";
 import { site } from "../lib/site";
-
-let projects: CollectionEntry<"projects">[] = [];
-try {
-	projects = await getCollection("projects");
-} catch {
-	projects = [];
-}
-projects = projects.filter((p) => !p.data.draft);
-projects.sort(
-	(a, b) => (b.data.date?.getTime?.() ?? 0) - (a.data.date?.getTime?.() ?? 0),
-);
-const featured = projects.filter((p) => p.data.selected);
-const topProjects = (featured.length ? featured : projects).slice(0, 3);
 ---
 
 <SiteLayout title="Home" description={site.description}>
@@ -184,43 +170,6 @@ const topProjects = (featured.length ? featured : projects).slice(0, 3);
 					</p>
 				</blockquote>
 			</div>
-		</section>
-
-		<section
-			class="rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-sm"
-		>
-			<h2 class="text-2xl font-semibold tracking-tight text-zinc-950">
-				Selected work
-			</h2>
-			{
-				topProjects.length === 0 ? (
-					<p class="mt-4 text-sm leading-6 text-zinc-700">
-						No projects published yet. Add Markdown files in{" "}
-						<code>src/content/projects</code> and set{" "}
-						<code>draft: false</code>.
-					</p>
-				) : (
-					<ul class="mt-5 space-y-4">
-						{topProjects.map((p) => (
-							<li class="rounded-xl border border-zinc-200 bg-zinc-50 p-4">
-								<div class="flex flex-col gap-1">
-									<a
-										class="text-sm font-semibold text-zinc-950 no-underline hover:underline"
-										href={`/projects/${p.slug}/`}
-									>
-										{p.data.title}
-									</a>
-									{p.data.summary ? (
-										<p class="text-sm leading-6 text-zinc-700">
-											{p.data.summary}
-										</p>
-									) : null}
-								</div>
-							</li>
-						))}
-					</ul>
-				)
-			}
 		</section>
 
 		<section
