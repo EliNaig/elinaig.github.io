@@ -1,0 +1,41 @@
+---
+type Props = {
+	title: string;
+	role?: string;
+	timeline?: string;
+};
+
+const { title, role, timeline } = Astro.props;
+---
+
+<section class="rounded-sm border border-zinc-200/80 bg-white p-6 shadow-sm">
+	<h1>{title}</h1>
+	{role || timeline ? (
+		<p class="mt-2 text-sm text-zinc-600">
+			{role ? `Role: ${role}` : ""}{role && timeline ? " • " : ""}{timeline ? `Timeline: ${timeline}` : ""}
+		</p>
+	) : null}
+
+	<div class="prose mt-6 max-w-none">
+		<h2>Problem</h2>
+		<slot name="problem" />
+
+		<h2>Constraints</h2>
+		<slot name="constraints" />
+
+		<h2>Approach</h2>
+		<slot name="approach" />
+
+		<h2>Implementation</h2>
+		<slot name="implementation" />
+
+		<h2>Validation</h2>
+		<slot name="validation" />
+
+		<h2>Outcome</h2>
+		<slot name="outcome" />
+
+		<h2>Next steps</h2>
+		<slot name="next" />
+	</div>
+</section>

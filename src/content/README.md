@@ -1,12 +1,13 @@
 ## Content Collections
 
-This Astro site is set up so that lists (Publications, Talks, Teaching, Projects) come from Markdown files with frontmatter.
+This Astro site is set up so that lists (Publications, Talks, Teaching, Projects, Writing) come from Markdown files with frontmatter.
 
 Add new entries under:
 - `src/content/publications/`
 - `src/content/talks/`
 - `src/content/teaching/`
 - `src/content/projects/`
+- `src/content/writing/`
 
 ### Publication example
 
@@ -42,4 +43,3 @@ links:
   slides: "https://example.com/slides.pdf"
 ---
 ```
-

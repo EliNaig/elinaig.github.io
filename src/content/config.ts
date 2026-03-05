@@ -11,6 +11,8 @@ const publications = defineCollection({
 		authors: z.string().optional(),
 		venue: z.string().optional(),
 		status: z.enum(["preprint", "published", "in-prep"]).optional(),
+		summary: z.string().optional(),
+		tags: z.array(z.string()).default([]),
 		selected: z.boolean().default(false),
 		links: z
 			.object({
@@ -32,6 +34,8 @@ const talks = defineCollection({
 		date: z.coerce.date(),
 		event: z.string().optional(),
 		location: z.string().optional(),
+		summary: z.string().optional(),
+		tags: z.array(z.string()).default([]),
 		kind: z.enum(["talk", "poster", "tutorial", "seminar"]).optional(),
 		selected: z.boolean().default(false),
 		links: z
@@ -51,6 +55,7 @@ const teaching = defineCollection({
 		term: z.string(),
 		institution: z.string().optional(),
 		role: z.string().optional(),
+		summary: z.string().optional(),
 		links: z
 			.object({
 				syllabus: externalLink.optional(),
@@ -67,6 +72,8 @@ const projects = defineCollection({
 		title: z.string(),
 		date: z.coerce.date().optional(),
 		summary: z.string(),
+		role: z.string().optional(),
+		impact: z.string().optional(),
 		tags: z.array(z.string()).default([]),
 		selected: z.boolean().default(false),
 		links: z
@@ -79,4 +86,15 @@ const projects = defineCollection({
 	}),
 });
 
-export const collections = { publications, talks, teaching, projects };
+const writing = defineCollection({
+	type: "content",
+	schema: z.object({
+		draft: z.boolean().default(false),
+		title: z.string(),
+		date: z.coerce.date(),
+		summary: z.string(),
+		tags: z.array(z.string()).default([]),
+	}),
+});
+
+export const collections = { publications, talks, teaching, projects, writing };

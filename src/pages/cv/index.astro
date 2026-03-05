@@ -3,14 +3,17 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 import { site } from "../../lib/site";
 ---
 
-<SiteLayout title="CV">
+<SiteLayout title="CV" description="Curriculum vitae for Eli Naig, including research and academic experience.">
 	<section class="prose max-w-none">
 		<h1>CV</h1>
 		<p>
 			Download: <a href="/ENCV.pdf">ENCV.pdf</a> • Email: <a href={`mailto:${site.email}`}>{site.email}</a>
 		</p>
+		<p class="rounded-sm border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-700">
+			For mobile devices, downloading the PDF is often easier than embedded viewing.
+		</p>
 
-		<div class="mt-6 overflow-hidden rounded-lg border border-zinc-200">
+		<div class="mt-6 overflow-hidden rounded-sm border border-zinc-200">
 			<iframe title="CV PDF" src="/ENCV.pdf#view=FitH" class="h-[80vh] w-full"></iframe>
 		</div>
 	</section>

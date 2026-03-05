@@ -3,29 +3,41 @@ import SiteLayout from "../../layouts/SiteLayout.astro";
 import { site } from "../../lib/site";
 ---
 
-<SiteLayout title="About">
+<SiteLayout title="About" description="Background, research interests, and current work by Eli Naig.">
 	<section class="mt-2">
 		<h1>About</h1>
-		<div class="mt-6 max-w-2xl rounded-2xl border border-zinc-200/80 bg-white p-6 shadow-sm">
+		<div class="mt-6 max-w-3xl rounded-sm border border-zinc-200/80 bg-white p-6 shadow-sm">
 			<div class="prose max-w-none">
 				<p>
-					I’m a mathematics student at {site.affiliation} and an undergraduate researcher. My interests include
-					<strong> algebraic coding theory</strong>, <strong>algebraic geometry</strong>, and <strong>cryptography</strong>.
+					I’m {site.name}, a mathematics student at {site.affiliation} and an undergraduate researcher in algebraic coding theory and
+					post-quantum cryptography.
 				</p>
 
-				<h2>Research</h2>
 				<p>
-					I’m especially interested in problems where algebraic structure leads to efficient algorithms or concrete constructions
-					(e.g., error-correcting codes and post-quantum security). For a snapshot, see <a href="/research/">Research</a> and
-					<a href="/publications/">Publications</a>.
+					My work sits at the boundary between theory and implementation. I focus on code-based cryptography, metric-structured
+					decoding questions (including NRT settings), and quasi-circulant / Niederreiter-type constructions. I care about turning
+					good mathematics into clear, reproducible systems work.
 				</p>
+
+				<h2>How I work</h2>
+				<ul>
+					<li><strong>Structure first:</strong> use algebraic and combinatorial invariants to reason about complexity and security.</li>
+					<li><strong>Reproducibility by default:</strong> deterministic experiments, explicit assumptions, and auditable outputs.</li>
+					<li><strong>Communication as engineering:</strong> write technical artifacts so others can verify and build on them.</li>
+				</ul>
 
 				<h2>Current activities</h2>
 				<ul>
 					<li>Undergraduate research with <a href="https://mahirbilencan.github.io/">Mahir Bilen Can</a></li>
-					<li>Coursework and seminars in pure and applied mathematics</li>
-					<li>Reproducible computational workflows (Python/R/LaTeX)</li>
+					<li>Developing benchmark and implementation artifacts across Python, Rust, and C</li>
+					<li>Building technical writing and case-study documentation for active projects</li>
 				</ul>
+
+				<h2>Seeking</h2>
+				<p>
+					I’m currently seeking research collaborations, advanced technical projects, and graduate-level opportunities in
+					mathematics and cryptography.
+				</p>
 
 				<h2>Links & contact</h2>
 				<ul>

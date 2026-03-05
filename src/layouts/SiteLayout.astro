@@ -8,11 +8,17 @@ import { site } from "../lib/site";
 type Props = {
 	title: string;
 	description?: string;
+	structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
+	noIndex?: boolean;
 };
 
-const { title, description } = Astro.props;
+const { title, description, structuredData, noIndex = false } = Astro.props;
 const fullTitle = title === "Home" ? site.name : `${title} — ${site.name}`;
 const metaDescription = description ?? site.description;
+const canonicalHref = new URL(Astro.url.pathname, site.url).href;
+const ogImageHref = new URL(site.ogImage, site.url).href;
+const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
+const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
 ---
 
 <!doctype html>
@@ -21,16 +27,49 @@ const metaDescription = description ?? site.description;
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<meta name="description" content={metaDescription} />
-		<link rel="canonical" href={Astro.url.href} />
+		<link rel="canonical" href={canonicalHref} />
 		<meta property="og:title" content={fullTitle} />
 		<meta property="og:description" content={metaDescription} />
 		<meta property="og:type" content="website" />
-		<meta property="og:url" content={Astro.url.href} />
-		<meta name="twitter:card" content="summary" />
+		<meta property="og:url" content={canonicalHref} />
+		<meta property="og:image" content={ogImageHref} />
+		<meta name="twitter:card" content="summary_large_image" />
 		<meta name="twitter:title" content={fullTitle} />
 		<meta name="twitter:description" content={metaDescription} />
+		<meta name="twitter:image" content={ogImageHref} />
+		{noIndex ? <meta name="robots" content="noindex, nofollow" /> : null}
+		{googleVerification ? <meta name="google-site-verification" content={googleVerification} /> : null}
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
+			crossorigin="anonymous"
+		/>
+		<script defer src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.js" crossorigin="anonymous"></script>
+		<script
+			defer
+			src="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/contrib/auto-render.min.js"
+			crossorigin="anonymous"
+		></script>
+		<script is:inline>
+			window.addEventListener("load", () => {
+				if (typeof window.renderMathInElement !== "function") return;
+				window.renderMathInElement(document.body, {
+					delimiters: [
+						{ left: "$$", right: "$$", display: true },
+						{ left: "$", right: "$", display: false },
+						{ left: "\\(", right: "\\)", display: false },
+						{ left: "\\[", right: "\\]", display: true },
+					],
+					throwOnError: false,
+				});
+			});
+		</script>
 		<meta name="generator" content={Astro.generator} />
+		{structuredData ? <script type="application/ld+json" set:html={JSON.stringify(structuredData)}></script> : null}
+		{plausibleDomain ? (
+			<script defer data-domain={plausibleDomain} src="https://plausible.io/js/script.js"></script>
+		) : null}
 		<title>{fullTitle}</title>
 	</head>
 	<body>
