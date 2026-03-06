@@ -8,7 +8,6 @@ const staticRoutes = [
 	"/about/",
 	"/research/",
 	"/publications/",
-	"/writing/",
 	"/talks/",
 	"/teaching/",
 	"/work/",
@@ -24,7 +23,6 @@ function toAbsolute(pathname: string) {
 
 export async function GET() {
 	let projectRoutes: string[] = [];
-	let writingRoutes: string[] = [];
 
 	try {
 		const projects = (await getCollection("projects")).filter(
@@ -35,14 +33,7 @@ export async function GET() {
 		projectRoutes = [];
 	}
 
-	try {
-		const writing = (await getCollection("writing")).filter((entry) => !entry.data.draft);
-		writingRoutes = writing.map((entry) => `/writing/${entry.slug}/`);
-	} catch {
-		writingRoutes = [];
-	}
-
-	const urls = [...new Set([...staticRoutes, ...projectRoutes, ...writingRoutes])]
+	const urls = [...new Set([...staticRoutes, ...projectRoutes])]
 		.map((route) => `<url><loc>${toAbsolute(route)}</loc></url>`)
 		.join("");
 

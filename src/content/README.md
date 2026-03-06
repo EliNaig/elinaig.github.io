@@ -7,7 +7,6 @@ Add new entries under:
 - `src/content/talks/`
 - `src/content/teaching/`
 - `src/content/projects/`
-- `src/content/writing/`
 
 ### Publication example
 

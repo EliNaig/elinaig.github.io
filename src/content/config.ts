@@ -86,15 +86,4 @@ const projects = defineCollection({
 	}),
 });
 
-const writing = defineCollection({
-	type: "content",
-	schema: z.object({
-		draft: z.boolean().default(false),
-		title: z.string(),
-		date: z.coerce.date(),
-		summary: z.string(),
-		tags: z.array(z.string()).default([]),
-	}),
-});
-
-export const collections = { publications, talks, teaching, projects, writing };
+export const collections = { publications, talks, teaching, projects };

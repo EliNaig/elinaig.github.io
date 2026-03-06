@@ -7,7 +7,7 @@ if (!fs.existsSync(root)) {
 	process.exit(1);
 }
 
-const requiredCollections = ["projects", "publications", "talks", "teaching", "writing"];
+const requiredCollections = ["projects", "publications", "talks", "teaching"];
 const problems = [];
 
 for (const c of requiredCollections) {
