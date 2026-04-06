@@ -23,6 +23,7 @@ selected: true
 links:
   pdf: "https://example.com/paper.pdf"
   arxiv: "https://arxiv.org/abs/xxxx.xxxxx"
+  eprint: "https://eprint.iacr.org/2026/665"
   doi: "10.0000/example"
 ---
 

@@ -10,6 +10,7 @@ try {
 }
 entries = entries.filter((e) => !e.data.draft);
 entries.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+const visibleEntries = entries;
 const releasedEntries = entries.filter((e) => e.data.status === "published");
 const patentQueueCount = entries.filter((e) => e.data.status !== "published").length;
 
@@ -39,32 +40,15 @@ function statusLabel(status) {
 	<section class="mt-2">
 		<h1>Papers</h1>
 		<p class="mt-4 max-w-prose text-zinc-800">
-			Most current manuscripts are moving through patent workflows, so full paper content is temporarily private.
-			For talks and teaching, see <a href="/work/">Work</a>.
+			Selected papers and preprints are listed below. For talks and teaching, see <a href="/work/">Work</a>.
 		</p>
 		<div class="mt-6 max-w-3xl rounded-sm border border-zinc-200/80 bg-white p-6 shadow-sm">
 			<div class="prose max-w-none">
-				<div class="rounded-sm border border-zinc-200 bg-zinc-50 p-4">
-					<p class="font-mono text-sm text-zinc-800">
-						Theorem (Patent Queue). If filing_status(t) = pending, then public_paper_count(t) = 0.
-					</p>
-					<p class="mt-2 text-sm text-zinc-700">Proof sketch: legal constraints are stronger than my urge to post PDFs. QED.</p>
-					<p class="mt-2 text-sm text-zinc-700">
-						Corollary: as t approaches approval, public_paper_count(t) increases.
-					</p>
-				</div>
-
-				<p class="mt-4 text-sm text-zinc-700">
-					Current pipeline: <strong>{patentQueueCount}</strong> manuscript{patentQueueCount === 1 ? "" : "s"} under patent review.
-				</p>
-
-				{releasedEntries.length === 0 ? (
-					<p class="mt-4 rounded-sm border border-zinc-200 bg-zinc-50 p-4">
-						No public papers posted yet. They will appear here once filings are cleared for release.
-					</p>
+				{visibleEntries.length === 0 ? (
+					<p class="rounded-sm border border-zinc-200 bg-zinc-50 p-4">No public papers posted yet.</p>
 				) : (
-					<ol class="mt-4 space-y-5 !pl-0">
-						{releasedEntries.map((e) => (
+					<ol class="space-y-5 !pl-0">
+						{visibleEntries.map((e) => (
 							<li class="list-none rounded-sm border border-zinc-200 bg-zinc-50 p-4">
 								<div class="flex flex-wrap items-start justify-between gap-3">
 									<strong class="text-zinc-950">{e.data.title}</strong>
@@ -87,6 +71,7 @@ function statusLabel(status) {
 									<div class="mt-3 flex flex-wrap gap-3 text-sm">
 										{e.data.links.pdf ? <a class="no-underline hover:underline" href={e.data.links.pdf}>PDF</a> : null}
 										{e.data.links.arxiv ? <a class="no-underline hover:underline" href={e.data.links.arxiv}>arXiv</a> : null}
+										{e.data.links.eprint ? <a class="no-underline hover:underline" href={e.data.links.eprint}>ePrint</a> : null}
 										{e.data.links.code ? <a class="no-underline hover:underline" href={e.data.links.code}>Code</a> : null}
 										{e.data.links.project ? <a class="no-underline hover:underline" href={e.data.links.project}>Project</a> : null}
 									</div>

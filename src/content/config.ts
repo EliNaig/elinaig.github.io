@@ -18,6 +18,7 @@ const publications = defineCollection({
 			.object({
 				pdf: externalLink.optional(),
 				arxiv: externalLink.optional(),
+				eprint: externalLink.optional(),
 				doi: z.string().optional(),
 				code: externalLink.optional(),
 				project: externalLink.optional(),
