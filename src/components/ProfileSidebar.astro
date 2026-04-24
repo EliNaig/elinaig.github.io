@@ -8,7 +8,11 @@ import { site } from "../lib/site";
 			<img
 				src={site.profileImage ?? "/images/profile.png"}
 				alt={`Portrait of ${site.name}`}
-				loading="lazy"
+				width="1600"
+				height="2400"
+				loading="eager"
+				decoding="async"
+				fetchpriority="high"
 				class="h-28 w-28 shrink-0 rounded-sm border border-zinc-200 object-cover lg:h-auto lg:w-full lg:max-w-none"
 			/>
 

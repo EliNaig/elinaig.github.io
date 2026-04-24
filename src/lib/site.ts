@@ -6,8 +6,8 @@ export const site = {
 	email: "enaig@tulane.edu",
 	location: "St. Louis, MO",
 	affiliation: "Tulane University",
-	profileImage: "/images/EliSG.png",
-	ogImage: "/images/EliSG.png",
+	profileImage: "/images/EliSG-2400.jpg",
+	ogImage: "/images/EliSG-2400.jpg",
 	social: {
 		github: "https://github.com/elinaig",
 		linkedin: "https://www.linkedin.com/in/eli-naig/",
