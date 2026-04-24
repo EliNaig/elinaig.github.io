@@ -1,8 +1,6 @@
 # Personal Website (Astro + Tailwind)
 
-This folder contains the rebuilt version of the site using Astro + Tailwind, designed to be fast, typographically clean, and easy to maintain.
-
-The legacy Jekyll-based site has been archived under `archive/legacy-jekyll/`.
+This folder contains the site using Astro + Tailwind, designed to be fast, typographically clean, and easy to maintain.
 
 ## Quick Start
 
