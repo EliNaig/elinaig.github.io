@@ -6,3 +6,6 @@ dist/
 
 # Local archive of legacy site
 archive/
+
+# Codex-generated audit output
+codex_website_audit_output/
