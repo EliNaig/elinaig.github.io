@@ -12,7 +12,8 @@ entries = entries.filter((e) => !e.data.draft);
 entries.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const visibleEntries = entries;
 const releasedEntries = entries.filter((e) => e.data.status === "published");
-const patentQueueCount = entries.filter((e) => e.data.status !== "published").length;
+const submittedEntries = visibleEntries.filter((e) => e.data.status !== "published");
+const publishedEntries = visibleEntries.filter((e) => e.data.status === "published");
 
 const publicationJsonLd = releasedEntries.map((entry) => ({
 	"@context": "https://schema.org",
@@ -25,11 +26,8 @@ const publicationJsonLd = releasedEntries.map((entry) => ({
 	url: entry.data.links?.pdf,
 }));
 
-function statusLabel(status) {
-	if (!status) return "Unspecified";
-	if (status === "in-prep") return "In Prep";
-	if (status === "preprint") return "Preprint";
-	return "Published";
+function publicationYear(date) {
+	return date.toLocaleDateString(undefined, { year: "numeric" });
 }
 ---
 
@@ -37,50 +35,59 @@ function statusLabel(status) {
 	{publicationJsonLd.length > 0 ? (
 		<script type="application/ld+json" set:html={JSON.stringify(publicationJsonLd)}></script>
 	) : null}
-	<section class="mt-2">
-		<h1>Papers</h1>
-		<p class="mt-4 max-w-prose text-zinc-800">
-			Selected papers and preprints are listed below. For talks and teaching, see <a href="/work/">Work</a>.
+	<section class="mt-2 max-w-5xl">
+		<h1>Publications</h1>
+		<p class="mt-4 max-w-3xl text-zinc-800">
+			My preprints and publications are listed below. For talks and teaching, see <a href="/work/">Work</a>.
 		</p>
-		<div class="mt-6 max-w-3xl rounded-sm border border-zinc-200/80 bg-white p-6 shadow-sm">
-			<div class="prose max-w-none">
-				{visibleEntries.length === 0 ? (
-					<p class="rounded-sm border border-zinc-200 bg-zinc-50 p-4">No public papers posted yet.</p>
-				) : (
-					<ol class="space-y-5 !pl-0">
-						{visibleEntries.map((e) => (
-							<li class="list-none rounded-sm border border-zinc-200 bg-zinc-50 p-4">
-								<div class="flex flex-wrap items-start justify-between gap-3">
-									<strong class="text-zinc-950">{e.data.title}</strong>
-									<span class="pill">{statusLabel(e.data.status)}</span>
-								</div>
-								{e.data.authors ? <div class="mt-1 text-zinc-700">{e.data.authors}</div> : null}
-								<div class="mt-1 text-zinc-600">
-									{e.data.venue ? `${e.data.venue} • ` : ""}
-									{e.data.date.toLocaleDateString(undefined, { year: "numeric", month: "short" })}
-								</div>
-								{e.data.summary ? <p class="mt-3 text-sm text-zinc-700">{e.data.summary}</p> : null}
-								{e.data.tags?.length ? (
-									<div class="mt-3 flex flex-wrap gap-2">
-										{e.data.tags.map((tag) => (
-											<span class="pill">{tag}</span>
-										))}
-									</div>
-								) : null}
-								{e.data.links ? (
-									<div class="mt-3 flex flex-wrap gap-3 text-sm">
-										{e.data.links.pdf ? <a class="no-underline hover:underline" href={e.data.links.pdf}>PDF</a> : null}
-										{e.data.links.arxiv ? <a class="no-underline hover:underline" href={e.data.links.arxiv}>arXiv</a> : null}
-										{e.data.links.eprint ? <a class="no-underline hover:underline" href={e.data.links.eprint}>ePrint</a> : null}
-										{e.data.links.code ? <a class="no-underline hover:underline" href={e.data.links.code}>Code</a> : null}
-										{e.data.links.project ? <a class="no-underline hover:underline" href={e.data.links.project}>Project</a> : null}
-									</div>
-								) : null}
-							</li>
-						))}
-					</ol>
-				)}
+
+		{visibleEntries.length === 0 ? (
+			<p class="mt-8 text-zinc-700">No public papers posted yet.</p>
+		) : (
+			<div class="mt-8 space-y-10">
+				{submittedEntries.length ? (
+					<section>
+						<h2>Submitted</h2>
+						<ol class="mt-4 list-decimal space-y-4 pl-8 text-zinc-800 marker:text-zinc-700">
+							{submittedEntries.map((e) => (
+								<li class="pl-2 leading-7">
+									{e.data.authors ? `${e.data.authors}. ` : ""}
+									{`(${publicationYear(e.data.date)}). `}
+									<span>{e.data.title}.</span>
+									{e.data.venue ? ` ${e.data.venue}.` : ""}
+									{e.data.links?.pdf ? <span> <a href={e.data.links.pdf}>[PDF]</a></span> : null}
+									{e.data.links?.arxiv ? <span> <a href={e.data.links.arxiv}>[arXiv]</a></span> : null}
+									{e.data.links?.eprint ? <span> <a href={e.data.links.eprint}>[ePrint]</a></span> : null}
+									{e.data.links?.code ? <span> <a href={e.data.links.code}>[code]</a></span> : null}
+								</li>
+							))}
+						</ol>
+					</section>
+				) : null}
+
+				{publishedEntries.length ? (
+					<>
+						<hr />
+						<section>
+							<h2>Published</h2>
+							<ol class="mt-4 list-decimal space-y-4 pl-8 text-zinc-800 marker:text-zinc-700" start={submittedEntries.length + 1}>
+								{publishedEntries.map((e) => (
+									<li class="pl-2 leading-7">
+										{e.data.authors ? `${e.data.authors}. ` : ""}
+										{`(${publicationYear(e.data.date)}). `}
+										<span>{e.data.title}.</span>
+										{e.data.venue ? ` ${e.data.venue}.` : ""}
+										{e.data.links?.pdf ? <span> <a href={e.data.links.pdf}>[PDF]</a></span> : null}
+										{e.data.links?.arxiv ? <span> <a href={e.data.links.arxiv}>[arXiv]</a></span> : null}
+										{e.data.links?.eprint ? <span> <a href={e.data.links.eprint}>[ePrint]</a></span> : null}
+										{e.data.links?.code ? <span> <a href={e.data.links.code}>[code]</a></span> : null}
+									</li>
+								))}
+							</ol>
+						</section>
+					</>
+				) : null}
 			</div>
-		</div>
+		)}
 	</section>
 </SiteLayout>
