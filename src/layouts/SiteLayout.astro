@@ -17,6 +17,7 @@ const fullTitle = title === "Home" ? site.name : `${title} — ${site.name}`;
 const metaDescription = description ?? site.description;
 const canonicalHref = new URL(Astro.url.pathname, site.url).href;
 const ogImageHref = new URL(site.ogImage, site.url).href;
+const showProfileSidebar = Astro.url.pathname === "/";
 const googleVerification = import.meta.env.PUBLIC_GOOGLE_SITE_VERIFICATION;
 const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
 ---
@@ -75,12 +76,18 @@ const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
 	<body>
 		<Header />
 		<main id="content" class="container pb-20 pt-10 lg:pt-12">
-			<div class="grid gap-10 lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-start lg:gap-12">
-				<ProfileSidebar />
+			{showProfileSidebar ? (
+				<div class="grid gap-10 lg:grid-cols-[18rem_minmax(0,1fr)] lg:items-start lg:gap-12">
+					<ProfileSidebar />
+					<div class="min-w-0">
+						<slot />
+					</div>
+				</div>
+			) : (
 				<div class="min-w-0">
 					<slot />
 				</div>
-			</div>
+			)}
 		</main>
 		<Footer />
 	</body>
