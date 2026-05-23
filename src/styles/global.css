@@ -8,7 +8,7 @@
 
 @layer base {
   :root {
-    color-scheme: light;
+    color-scheme: light dark;
   }
 
   html {
@@ -64,6 +64,46 @@
   code {
     @apply rounded bg-zinc-100 px-1 py-0.5 text-[0.9em] text-zinc-900;
   }
+
+  @media (prefers-color-scheme: dark) {
+    body {
+      @apply bg-zinc-950 text-zinc-100;
+    }
+
+    ::selection {
+      @apply bg-sky-500/40 text-zinc-50;
+    }
+
+    a {
+      @apply text-sky-300 decoration-sky-700/70;
+    }
+
+    a:hover {
+      @apply text-sky-200 decoration-sky-500/80;
+    }
+
+    a:focus-visible {
+      @apply ring-offset-zinc-950;
+    }
+
+    h1,
+    h2,
+    h3 {
+      @apply text-zinc-50;
+    }
+
+    p {
+      @apply text-zinc-300;
+    }
+
+    hr {
+      @apply border-zinc-700;
+    }
+
+    code {
+      @apply bg-zinc-800 text-zinc-100;
+    }
+  }
 }
 
 @layer components {
@@ -118,5 +158,91 @@
 
   :where(.prose) td {
     @apply border border-zinc-200 px-3 py-2 align-top;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .btn-primary {
+      @apply bg-zinc-100 text-zinc-950 hover:bg-white focus-visible:ring-offset-zinc-950;
+    }
+
+    .btn-secondary {
+      @apply border-zinc-600 bg-zinc-900 text-zinc-100 hover:border-zinc-500 hover:bg-zinc-800 focus-visible:ring-offset-zinc-950;
+    }
+
+    .pill {
+      @apply border-zinc-700 bg-zinc-900 text-zinc-200 hover:border-zinc-600 hover:bg-zinc-800;
+    }
+
+    .prose {
+      @apply text-zinc-300;
+    }
+
+    .prose blockquote {
+      @apply border-zinc-700 text-zinc-400;
+    }
+
+    :where(.prose) th {
+      @apply border-zinc-700 bg-zinc-900 text-zinc-100;
+    }
+
+    :where(.prose) td {
+      @apply border-zinc-700 text-zinc-300;
+    }
+  }
+}
+
+@layer utilities {
+  @media (prefers-color-scheme: dark) {
+    .bg-white {
+      @apply bg-zinc-900;
+    }
+
+    .bg-zinc-50 {
+      @apply bg-zinc-800;
+    }
+
+    .bg-zinc-100 {
+      @apply bg-zinc-800;
+    }
+
+    .text-zinc-950,
+    .text-zinc-900 {
+      @apply text-zinc-50;
+    }
+
+    .text-zinc-800 {
+      @apply text-zinc-300;
+    }
+
+    .text-zinc-700 {
+      @apply text-zinc-400;
+    }
+
+    .text-zinc-600 {
+      @apply text-zinc-400;
+    }
+
+    .text-zinc-500 {
+      @apply text-zinc-500;
+    }
+
+    .border-zinc-200,
+    .border-zinc-200\/80,
+    .border-zinc-300 {
+      @apply border-zinc-700;
+    }
+
+    .hover\:bg-zinc-50:hover {
+      @apply bg-zinc-800;
+    }
+
+    .hover\:border-zinc-300:hover,
+    .hover\:border-zinc-900:hover {
+      @apply border-zinc-500;
+    }
+
+    .hover\:bg-zinc-900:hover {
+      @apply bg-zinc-200;
+    }
   }
 }
