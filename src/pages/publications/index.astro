@@ -12,7 +12,7 @@ entries = entries.filter((e) => !e.data.draft);
 entries.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 const visibleEntries = entries;
 const releasedEntries = entries.filter((e) => e.data.status === "published");
-const submittedEntries = visibleEntries.filter((e) => e.data.status !== "published");
+const workingEntries = visibleEntries.filter((e) => e.data.status !== "published");
 const publishedEntries = visibleEntries.filter((e) => e.data.status === "published");
 
 const publicationJsonLd = releasedEntries.map((entry) => ({
@@ -31,7 +31,7 @@ function publicationYear(date) {
 }
 ---
 
-<SiteLayout title="Publications" description="Published papers and patent-pending research updates by Eli Naig.">
+<SiteLayout title="Publications" description="Preprints, working papers, and publications by Eli Naig.">
 	{publicationJsonLd.length > 0 ? (
 		<script type="application/ld+json" set:html={JSON.stringify(publicationJsonLd)}></script>
 	) : null}
@@ -45,11 +45,11 @@ function publicationYear(date) {
 			<p class="mt-8 text-zinc-700">No public papers posted yet.</p>
 		) : (
 			<div class="mt-8 space-y-10">
-				{submittedEntries.length ? (
+				{workingEntries.length ? (
 					<section>
-						<h2>Submitted</h2>
+						<h2>Preprints and working papers</h2>
 						<ol class="mt-4 list-decimal space-y-4 pl-8 text-zinc-800 marker:text-zinc-700">
-							{submittedEntries.map((e) => (
+							{workingEntries.map((e) => (
 								<li class="pl-2 leading-7">
 									{e.data.authors ? `${e.data.authors}. ` : ""}
 									{`(${publicationYear(e.data.date)}). `}
@@ -70,7 +70,7 @@ function publicationYear(date) {
 						<hr />
 						<section>
 							<h2>Published</h2>
-							<ol class="mt-4 list-decimal space-y-4 pl-8 text-zinc-800 marker:text-zinc-700" start={submittedEntries.length + 1}>
+							<ol class="mt-4 list-decimal space-y-4 pl-8 text-zinc-800 marker:text-zinc-700" start={workingEntries.length + 1}>
 								{publishedEntries.map((e) => (
 									<li class="pl-2 leading-7">
 										{e.data.authors ? `${e.data.authors}. ` : ""}
