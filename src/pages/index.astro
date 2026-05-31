@@ -1,9 +1,9 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { site } from "../lib/site";
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
-let publications = [];
+let publications: CollectionEntry<"publications">[] = [];
 try {
 	publications = await getCollection("publications");
 } catch {
@@ -17,20 +17,13 @@ const preprintPaperCount = publications.filter((e) => e.data.status === "preprin
 const inPrepPaperCount = publications.filter((e) => e.data.status === "in-prep").length;
 const publicPaperCount = publishedPaperCount + preprintPaperCount;
 
-const proofPoints = [
-	"B.S. Mathematics at Tulane University (2024-2027)",
-	"Cumulative GPA: 3.97 / 4.00",
-	"Undergraduate research in algebraic coding theory + PQC",
-	"Co-Founder and Vice President, Tulane Science Olympiad",
-	"President, Tulane Math Club (2026-2027)",
-];
-
-const paperPipelineNotes = [
-	`Public research writing: ${publicPaperCount} item${publicPaperCount === 1 ? "" : "s"}.`,
-	`Currently posted: ${preprintPaperCount} preprint${preprintPaperCount === 1 ? "" : "s"} and ${publishedPaperCount} published paper${publishedPaperCount === 1 ? "" : "s"}.`,
-	inPrepPaperCount
-		? `${inPrepPaperCount} additional manuscript${inPrepPaperCount === 1 ? "" : "s"} in preparation.`
-		: "Additional manuscripts are in active development.",
+const facts = [
+	["Education", "B.S. Mathematics, Tulane University, expected 2027 · GPA 3.97 / 4.00"],
+	["Research", "Algebraic coding theory, metric structure, and post-quantum cryptography"],
+	[
+		"Writing",
+		`${publicPaperCount} public item${publicPaperCount === 1 ? "" : "s"}; ${inPrepPaperCount || "additional"} manuscript${inPrepPaperCount === 1 ? "" : "s"} in development`,
+	],
 ];
 
 const structuredData = {
@@ -79,14 +72,14 @@ const structuredData = {
 		</section>
 
 		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>At a glance</h2>
-				<ul class="min-w-0 space-y-2 text-sm leading-6 text-zinc-700">
-					{proofPoints.map((point) => (
-						<li>{point}</li>
-					))}
-				</ul>
-			</div>
+			<dl class="grid gap-8 sm:grid-cols-3">
+				{facts.map(([label, value]) => (
+					<div>
+						<dt class="text-sm font-medium uppercase tracking-[0.16em] text-zinc-500">{label}</dt>
+						<dd class="mt-3 text-sm leading-6 text-zinc-700">{value}</dd>
+					</div>
+				))}
+			</dl>
 		</section>
 
 		<section class="section">
@@ -218,34 +211,6 @@ const structuredData = {
 							</p>
 						</div>
 					</article>
-				</div>
-			</div>
-		</section>
-
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Publications snapshot</h2>
-				<div class="prose max-w-none">
-					<ul>
-						{paperPipelineNotes.map((item) => (
-							<li>{item}</li>
-						))}
-					</ul>
-					<p>
-						Public research writing lives on <a href="/publications/">Publications</a>. Currently visible:
-						<strong>{publicPaperCount}</strong>. For a consolidated view, visit <a href="/publications/">Publications</a> and
-						<a href="/cv/">CV</a>.
-					</p>
-				</div>
-			</div>
-		</section>
-
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Explore more</h2>
-				<div class="flex min-w-0 flex-wrap gap-2 text-sm">
-					<a class="pill" href="/publications/">Publications</a>
-					<a class="pill" href="/cv/">CV</a>
 				</div>
 			</div>
 		</section>
