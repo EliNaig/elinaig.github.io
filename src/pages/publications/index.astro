@@ -1,8 +1,8 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
-import { getCollection } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 
-let entries = [];
+let entries: CollectionEntry<"publications">[] = [];
 try {
 	entries = await getCollection("publications");
 } catch {
@@ -19,21 +19,21 @@ const publicationJsonLd = releasedEntries.map((entry) => ({
 	"@context": "https://schema.org",
 	"@type": "ScholarlyArticle",
 	headline: entry.data.title,
-	author: entry.data.authors ? entry.data.authors.split(",").map((name) => ({ "@type": "Person", name: name.trim() })) : undefined,
+	author: entry.data.authors ? entry.data.authors.split(",").map((name: string) => ({ "@type": "Person", name: name.trim() })) : undefined,
 	datePublished: entry.data.date.toISOString(),
 	isPartOf: entry.data.venue,
 	description: entry.data.summary,
 	url: entry.data.links?.pdf,
 }));
 
-function publicationYear(date) {
+function publicationYear(date: Date) {
 	return date.toLocaleDateString(undefined, { year: "numeric" });
 }
 ---
 
 <SiteLayout title="Publications" description="Preprints, working papers, and publications by Eli Naig.">
 	{publicationJsonLd.length > 0 ? (
-		<script type="application/ld+json" set:html={JSON.stringify(publicationJsonLd)}></script>
+		<script type="application/ld+json" is:inline set:html={JSON.stringify(publicationJsonLd)}></script>
 	) : null}
 	<section class="max-w-5xl">
 		<h1>Publications</h1>
