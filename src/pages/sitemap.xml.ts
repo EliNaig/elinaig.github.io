@@ -1,4 +1,3 @@
-import { getCollection } from "astro:content";
 import { site } from "../lib/site";
 
 export const prerender = true;
@@ -9,9 +8,6 @@ const staticRoutes = [
 	"/publications/",
 	"/talks/",
 	"/teaching/",
-	"/work/",
-	"/now/",
-	"/contact/",
 	"/cv/",
 	"/resume/",
 ];
@@ -21,18 +17,7 @@ function toAbsolute(pathname: string) {
 }
 
 export async function GET() {
-	let projectRoutes: string[] = [];
-
-	try {
-		const projects = (await getCollection("projects")).filter(
-			(entry) => !entry.data.draft && entry.slug === "anti-chain-posetbench",
-		);
-		projectRoutes = projects.map((entry) => `/projects/${entry.slug}/`);
-	} catch {
-		projectRoutes = [];
-	}
-
-	const urls = [...new Set([...staticRoutes, ...projectRoutes])]
+	const urls = [...new Set(staticRoutes)]
 		.map((route) => `<url><loc>${toAbsolute(route)}</loc></url>`)
 		.join("");
 
