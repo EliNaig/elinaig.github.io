@@ -4,10 +4,7 @@ export const prerender = true;
 
 const staticRoutes = [
 	"/",
-	"/research/",
 	"/publications/",
-	"/talks/",
-	"/teaching/",
 	"/cv/",
 	"/resume/",
 ];
