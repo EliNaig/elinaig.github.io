@@ -64,8 +64,9 @@ const structuredData = {
 >
 	<div class="space-y-12">
 		<section class="max-w-3xl">
+			<p class="mb-4 text-sm uppercase tracking-[0.18em] text-zinc-500">Mathematics • Coding theory • Cryptography</p>
 			<h1>
-				Eli Naig: Coding Theory, Metric Properties, and PQC
+				I study algebraic coding theory and post-quantum cryptography.
 			</h1>
 			<p class="mt-6 max-w-2xl text-lg leading-8 text-zinc-700">
 				I’m {site.name}, a mathematics student and undergraduate researcher at {site.affiliation} working on algebraic coding
@@ -78,152 +79,193 @@ const structuredData = {
 		</section>
 
 		<section class="section">
-			<h2>At a glance</h2>
-			<div class="mt-6 grid gap-x-8 gap-y-3 sm:grid-cols-2">
-				{proofPoints.map((point) => (
-					<div class="text-sm leading-6 text-zinc-700">{point}</div>
-				))}
-			</div>
-		</section>
-
-		<section class="section">
-			<div class="prose max-w-none">
-				<h2>Research focus</h2>
-				<p>
-					I work on algebraic methods in coding theory and cryptography, with an emphasis on building strong fundamentals and
-					writing clear expository notes.
-				</p>
-				<ul>
-					<li><strong>Algebraic coding theory:</strong> structural and metric properties of code families.</li>
-					<li><strong>Algebraic geometry:</strong> foundations and examples that inform code structure.</li>
-					<li><strong>Post-quantum cryptography:</strong> code-based KEM design and analysis.</li>
-					<li><strong>Number theory and cryptography:</strong> mathematical tools for secure constructions.</li>
-					<li><strong>Reproducible systems:</strong> benchmark harnesses, conformance vectors, and experiment pipelines.</li>
-				</ul>
-				<h2>Current research</h2>
-				<ul>
-					<li>
-						Undergraduate research with <a href="https://mahirbilencan.github.io/">Mahir Bilen Can</a> at Tulane University
-					</li>
-					<li>
-						Selected papers and public research writing live on <a href="/publications/">Publications</a>.
-					</li>
-				</ul>
-			</div>
-		</section>
-
-		<section class="section">
-			<div class="prose max-w-none">
-				<h2>Current focus</h2>
-				<ul>
-					<li>Building reproducible benchmark pipelines for post-quantum coding and decoding experiments.</li>
-					<li>Developing and validating QC/Niederreiter-style implementation references.</li>
-					<li>Expanding project documentation into publication-ready technical artifacts.</li>
-				</ul>
-
-				<h2>Active reading</h2>
-				<ul>
-					<li>Algebraic coding theory and metric-structured code families</li>
-					<li>Cryptographic implementation and evaluation methodology</li>
-				</ul>
-
-				<h2>Outside the technical work</h2>
-				<p>
-					I’m drawn to scientific biography and computing history; favorites include <em>Surely You're Joking, Mr.
-					Feynman!</em>, <em>The Bit Player</em>, and <em>The Imitation Game</em>.
-				</p>
-
-				<h2>Open to</h2>
-				<ul>
-					<li>Research collaboration in coding theory and post-quantum cryptography</li>
-					<li>Seminar talks and technical discussions</li>
-					<li>Graduate-level opportunities in mathematics and cryptography</li>
-				</ul>
-			</div>
-		</section>
-
-		<section class="section">
-			<h2>Leadership</h2>
-			<div class="mt-6 divide-y divide-zinc-200">
-				<article class="grid gap-6 py-6 first:pt-0 sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-start">
-					<img
-						src="/images/tulane-scioly-logo.png"
-						alt="Tulane Science Olympiad logo"
-						class="h-24 w-24 shrink-0 object-contain"
-						loading="lazy"
-					/>
-					<div class="min-w-0">
-						<h3>Co-Founder and Vice President, Tulane Science Olympiad</h3>
-						<p class="mt-1 text-sm text-zinc-500">2024-Present</p>
-						<p class="mt-3 max-w-2xl">
-							Co-founded Tulane’s first Science Olympiad invitational and helped drive rapid growth in Science Olympiad
-							at Tulane and across Louisiana. Work includes statewide outreach, tournament organizing, volunteer
-							coordination, campus-wide space allocation across 60+ classrooms and laboratories, and development of the
-							official competition website, all in support of an effort to expand active Science Olympiad teams statewide.
-						</p>
-						<p class="mt-4 text-sm">
-							<a href="https://www.tulanescioly.org/">Visit tulanescioly.org</a>
-						</p>
-					</div>
-				</article>
-				<article class="grid gap-6 py-6 last:pb-0 sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-start">
-					<img
-						src="/images/tulane-math-club-logo.png"
-						alt="Tulane Math Club logo"
-						class="h-24 w-24 shrink-0 object-contain"
-						loading="lazy"
-					/>
-					<div class="min-w-0">
-						<h3>President, Tulane Math Club</h3>
-						<p class="mt-1 text-sm text-zinc-500">2026-2027</p>
-						<p class="mt-3 max-w-2xl">
-							During the 2026-2027 academic year, I lead club programming, coordination, student engagement, and
-							stewardship of the organization website.
-						</p>
-						<p class="mt-4 text-sm">
-							<a href="https://tulanemathsociety.github.io/">Visit tulanemathsociety.github.io</a>
-						</p>
-					</div>
-				</article>
-			</div>
-		</section>
-
-		<section class="section">
-			<div class="prose max-w-none">
-				<h2>Publications snapshot</h2>
-				<ul>
-					{paperPipelineNotes.map((item) => (
-						<li>{item}</li>
+			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
+				<h2>At a glance</h2>
+				<ul class="min-w-0 space-y-2 text-sm leading-6 text-zinc-700">
+					{proofPoints.map((point) => (
+						<li>{point}</li>
 					))}
 				</ul>
-				<p>
-					Public research writing lives on <a href="/publications/">Publications</a>. Currently visible:
-					<strong>{publicPaperCount}</strong>. For a consolidated view, visit <a href="/publications/">Publications</a> and
-					<a href="/cv/">CV</a>.
-				</p>
 			</div>
 		</section>
 
 		<section class="section">
-			<h2>Explore more</h2>
-			<div class="mt-6 flex flex-wrap gap-2 text-sm">
-				<a class="pill" href="/publications/">Publications</a>
-				<a class="pill" href="/cv/">CV</a>
+			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
+				<h2>Research focus</h2>
+				<div class="prose max-w-none">
+					<p>
+						I work on algebraic methods in coding theory and cryptography, with an emphasis on building strong fundamentals and
+						writing clear expository notes.
+					</p>
+					<ul>
+						<li><strong>Algebraic coding theory:</strong> structural and metric properties of code families.</li>
+						<li><strong>Algebraic geometry:</strong> foundations and examples that inform code structure.</li>
+						<li><strong>Post-quantum cryptography:</strong> code-based KEM design and analysis.</li>
+						<li><strong>Number theory and cryptography:</strong> mathematical tools for secure constructions.</li>
+						<li><strong>Reproducible systems:</strong> benchmark harnesses, conformance vectors, and experiment pipelines.</li>
+					</ul>
+				</div>
 			</div>
 		</section>
 
 		<section class="section">
-			<h2>Collaborate or connect</h2>
-			<p class="mt-6 max-w-2xl text-zinc-700">
-				If you’re reaching out about research collaboration, graduate study opportunities, technical project work, or speaking,
-				email me at <a href={`mailto:${site.email}`}>{site.email}</a>.
-			</p>
-			<p class="mt-4 max-w-2xl text-zinc-700">
-				If you email about research, a reading group, or collaboration, a couple of sentences on context and timeline help.
-			</p>
-			<div class="mt-6 flex flex-wrap gap-3">
-				<a class="btn-primary" href={`mailto:${site.email}`}>Email</a>
-				<a class="btn-secondary" href="/publications/">Publications</a>
+			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
+				<h2>Current research</h2>
+				<div class="prose max-w-none">
+					<ul>
+						<li>
+							Undergraduate research with <a href="https://mahirbilencan.github.io/">Mahir Bilen Can</a> at Tulane University
+						</li>
+						<li>
+							Selected papers and public research writing live on <a href="/publications/">Publications</a>.
+						</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
+				<h2>Current focus</h2>
+				<div class="prose max-w-none">
+					<ul>
+						<li>Building reproducible benchmark pipelines for post-quantum coding and decoding experiments.</li>
+						<li>Developing and validating QC/Niederreiter-style implementation references.</li>
+						<li>Expanding project documentation into publication-ready technical artifacts.</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
+				<h2>Active reading</h2>
+				<div class="prose max-w-none">
+					<ul>
+						<li>Algebraic coding theory and metric-structured code families</li>
+						<li>Cryptographic implementation and evaluation methodology</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
+				<h2>Outside the technical work</h2>
+				<div class="prose max-w-none">
+					<p>
+						I’m drawn to scientific biography and computing history; favorites include <em>Surely You're Joking, Mr.
+						Feynman!</em>, <em>The Bit Player</em>, and <em>The Imitation Game</em>.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
+				<h2>Open to</h2>
+				<div class="prose max-w-none">
+					<ul>
+						<li>Research collaboration in coding theory and post-quantum cryptography</li>
+						<li>Seminar talks and technical discussions</li>
+						<li>Graduate-level opportunities in mathematics and cryptography</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
+				<h2>Leadership</h2>
+				<div class="min-w-0 divide-y divide-zinc-200">
+					<article class="grid gap-6 py-6 first:pt-0 sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-start">
+						<img
+							src="/images/tulane-scioly-logo.png"
+							alt="Tulane Science Olympiad logo"
+							class="h-24 w-24 shrink-0 object-contain"
+							loading="lazy"
+						/>
+						<div class="min-w-0">
+							<h3>Co-Founder and Vice President, Tulane Science Olympiad</h3>
+							<p class="mt-1 text-sm text-zinc-500">2024-Present</p>
+							<p class="mt-3 max-w-2xl">
+								Co-founded Tulane’s first Science Olympiad invitational and helped drive rapid growth in Science Olympiad
+								at Tulane and across Louisiana. Work includes statewide outreach, tournament organizing, volunteer
+								coordination, campus-wide space allocation across 60+ classrooms and laboratories, and development of the
+								official competition website, all in support of an effort to expand active Science Olympiad teams statewide.
+							</p>
+							<p class="mt-4 text-sm">
+								<a href="https://www.tulanescioly.org/">Visit tulanescioly.org</a>
+							</p>
+						</div>
+					</article>
+					<article class="grid gap-6 py-6 last:pb-0 sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-start">
+						<img
+							src="/images/tulane-math-club-logo.png"
+							alt="Tulane Math Club logo"
+							class="h-24 w-24 shrink-0 object-contain"
+							loading="lazy"
+						/>
+						<div class="min-w-0">
+							<h3>President, Tulane Math Club</h3>
+							<p class="mt-1 text-sm text-zinc-500">2026-2027</p>
+							<p class="mt-3 max-w-2xl">
+								During the 2026-2027 academic year, I lead club programming, coordination, student engagement, and
+								stewardship of the organization website.
+							</p>
+							<p class="mt-4 text-sm">
+								<a href="https://tulanemathsociety.github.io/">Visit tulanemathsociety.github.io</a>
+							</p>
+						</div>
+					</article>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
+				<h2>Publications snapshot</h2>
+				<div class="prose max-w-none">
+					<ul>
+						{paperPipelineNotes.map((item) => (
+							<li>{item}</li>
+						))}
+					</ul>
+					<p>
+						Public research writing lives on <a href="/publications/">Publications</a>. Currently visible:
+						<strong>{publicPaperCount}</strong>. For a consolidated view, visit <a href="/publications/">Publications</a> and
+						<a href="/cv/">CV</a>.
+					</p>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
+				<h2>Explore more</h2>
+				<div class="flex min-w-0 flex-wrap gap-2 text-sm">
+					<a class="pill" href="/publications/">Publications</a>
+					<a class="pill" href="/cv/">CV</a>
+				</div>
+			</div>
+		</section>
+
+		<section class="section">
+			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
+				<h2>Collaborate or connect</h2>
+				<div class="min-w-0">
+					<p class="max-w-2xl text-zinc-700">
+						If you’re reaching out about research collaboration, graduate study opportunities, technical project work, or speaking,
+						email me at <a href={`mailto:${site.email}`}>{site.email}</a>.
+					</p>
+					<p class="mt-4 max-w-2xl text-zinc-700">
+						If you email about research, a reading group, or collaboration, a couple of sentences on context and timeline help.
+					</p>
+					<div class="mt-6 flex flex-wrap gap-3">
+						<a class="btn-primary" href={`mailto:${site.email}`}>Email</a>
+						<a class="btn-secondary" href="/publications/">Publications</a>
+					</div>
+				</div>
 			</div>
 		</section>
 	</div>
