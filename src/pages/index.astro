@@ -1,29 +1,10 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
 import { site } from "../lib/site";
-import { getCollection, type CollectionEntry } from "astro:content";
-
-let publications: CollectionEntry<"publications">[] = [];
-try {
-	publications = await getCollection("publications");
-} catch {
-	publications = [];
-}
-
-publications = publications.filter((e) => !e.data.draft);
-
-const publishedPaperCount = publications.filter((e) => e.data.status === "published").length;
-const preprintPaperCount = publications.filter((e) => e.data.status === "preprint").length;
-const inPrepPaperCount = publications.filter((e) => e.data.status === "in-prep").length;
-const publicPaperCount = publishedPaperCount + preprintPaperCount;
 
 const facts = [
-	["Education", "B.S. Mathematics, Tulane University, expected 2027 · GPA 3.97 / 4.00"],
-	["Research", "Algebraic coding theory, metric structure, and post-quantum cryptography"],
-	[
-		"Writing",
-		`${publicPaperCount} public item${publicPaperCount === 1 ? "" : "s"}; ${inPrepPaperCount || "additional"} manuscript${inPrepPaperCount === 1 ? "" : "s"} in development`,
-	],
+	{ label: "Education", value: "B.S. Mathematics, Tulane University, expected 2027 · GPA 3.97 / 4.00" },
+	{ label: "Advisor", value: "Mahir Bilen Can, Tulane University", href: "https://mahirbilencan.github.io/" },
 ];
 
 const structuredData = {
@@ -62,8 +43,8 @@ const structuredData = {
 				I study algebraic coding theory and post-quantum cryptography.
 			</h1>
 			<p class="mt-6 max-w-2xl text-lg leading-8 text-zinc-700">
-				I’m {site.name}, a mathematics student and undergraduate researcher at {site.affiliation} working on algebraic coding
-				theory, NRT metrics, and reproducible post-quantum cryptography systems.
+				I’m {site.name}, a mathematics undergraduate at {site.affiliation}. My work centers on the metric and algebraic
+				structure of code families and on building reproducible systems for cryptographic research.
 			</p>
 			<div class="mt-8 flex flex-wrap gap-3">
 				<a class="btn-primary" href="/publications/">Publications</a>
@@ -72,11 +53,13 @@ const structuredData = {
 		</section>
 
 		<section class="section">
-			<dl class="grid gap-8 sm:grid-cols-3">
-				{facts.map(([label, value]) => (
+			<dl class="grid gap-8 sm:grid-cols-2">
+				{facts.map((fact) => (
 					<div>
-						<dt class="text-sm font-medium uppercase tracking-[0.16em] text-zinc-500">{label}</dt>
-						<dd class="mt-3 text-sm leading-6 text-zinc-700">{value}</dd>
+						<dt class="text-sm font-medium uppercase tracking-[0.16em] text-zinc-500">{fact.label}</dt>
+						<dd class="mt-3 text-sm leading-6 text-zinc-700">
+							{fact.href ? <a href={fact.href}>{fact.value}</a> : fact.value}
+						</dd>
 					</div>
 				))}
 			</dl>
@@ -103,66 +86,12 @@ const structuredData = {
 
 		<section class="section">
 			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Current research</h2>
-				<div class="prose max-w-none">
-					<ul>
-						<li>
-							Undergraduate research with <a href="https://mahirbilencan.github.io/">Mahir Bilen Can</a> at Tulane University
-						</li>
-						<li>
-							Selected papers and public research writing live on <a href="/publications/">Publications</a>.
-						</li>
-					</ul>
-				</div>
-			</div>
-		</section>
-
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Current focus</h2>
-				<div class="prose max-w-none">
-					<ul>
-						<li>Building reproducible benchmark pipelines for post-quantum coding and decoding experiments.</li>
-						<li>Developing and validating QC/Niederreiter-style implementation references.</li>
-						<li>Expanding project documentation into publication-ready technical artifacts.</li>
-					</ul>
-				</div>
-			</div>
-		</section>
-
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Active reading</h2>
-				<div class="prose max-w-none">
-					<ul>
-						<li>Algebraic coding theory and metric-structured code families</li>
-						<li>Cryptographic implementation and evaluation methodology</li>
-					</ul>
-				</div>
-			</div>
-		</section>
-
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
 				<h2>Outside the technical work</h2>
 				<div class="prose max-w-none">
 					<p>
 						I’m drawn to scientific biography and computing history; favorites include <em>Surely You're Joking, Mr.
 						Feynman!</em>, <em>The Bit Player</em>, and <em>The Imitation Game</em>.
 					</p>
-				</div>
-			</div>
-		</section>
-
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Open to</h2>
-				<div class="prose max-w-none">
-					<ul>
-						<li>Research collaboration in coding theory and post-quantum cryptography</li>
-						<li>Seminar talks and technical discussions</li>
-						<li>Graduate-level opportunities in mathematics and cryptography</li>
-					</ul>
 				</div>
 			</div>
 		</section>
@@ -217,19 +146,16 @@ const structuredData = {
 
 		<section class="section">
 			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Collaborate or connect</h2>
+				<h2>Collaborate</h2>
 				<div class="min-w-0">
 					<p class="max-w-2xl text-zinc-700">
-						If you’re reaching out about research collaboration, graduate study opportunities, technical project work, or speaking,
-						email me at <a href={`mailto:${site.email}`}>{site.email}</a>.
+						I’m open to research collaboration in coding theory and post-quantum cryptography, seminar talks and technical
+						discussions, project work, and graduate-level opportunities in mathematics.
 					</p>
 					<p class="mt-4 max-w-2xl text-zinc-700">
-						If you email about research, a reading group, or collaboration, a couple of sentences on context and timeline help.
+						If you’re reaching out about any of these, <a href={`mailto:${site.email}`}>email me</a>. A couple of sentences on
+						context and timeline help.
 					</p>
-					<div class="mt-6 flex flex-wrap gap-3">
-						<a class="btn-primary" href={`mailto:${site.email}`}>Email</a>
-						<a class="btn-secondary" href="/publications/">Publications</a>
-					</div>
 				</div>
 			</div>
 		</section>
