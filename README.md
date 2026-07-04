@@ -1,46 +1,31 @@
-# Personal Website (Astro + Tailwind)
+<div align="center">
 
-This folder contains the site using Astro + Tailwind, designed to be fast, typographically clean, and easy to maintain.
+<img src="public/images/EliSG-2400.jpg" alt="Eli Naig" width="160" />
 
-## Quick Start
+# Eli Naig
 
-From the repository root:
+Mathematics undergraduate at Tulane University studying algebraic coding theory
+and post-quantum cryptography, advised by [Mahir Bilen Can](https://mahirbilencan.github.io/).
 
-- Install: `npm ci`
-- Dev server: `npm run dev` (defaults to `http://localhost:4321`)
-- Production build: `npm run build`
-- Preview build: `npm run preview`
-- Full site checks: `npm run check:site`
+**[elinaig.github.io](https://elinaig.github.io)**
 
-## Where to Edit Things
+[![GitHub](https://img.shields.io/badge/GitHub-elinaig-181717.svg?logo=github)](https://github.com/elinaig)
+[![ORCID](https://img.shields.io/badge/ORCID-0009--0003--9324--2382-A6CE39.svg?logo=orcid&logoColor=white)](https://orcid.org/0009-0003-9324-2382)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-eli--naig-0A66C2.svg?logo=linkedin)](https://www.linkedin.com/in/eli-naig/)
 
-- Site metadata + links: `src/lib/site.ts`
-- Global styles + typography rules: `src/styles/global.css`
-- Layout (header/footer/meta): `src/layouts/SiteLayout.astro`
-- Pages:
-  - Home: `src/pages/index.astro`
-  - Research: `src/pages/research/index.astro`
-  - Publications: `src/pages/publications/index.astro`
-  - Writing: `src/pages/writing/index.astro`
-  - Now: `src/pages/now/index.astro`
-  - Talks: `src/pages/talks/index.astro`
-  - Teaching: `src/pages/teaching/index.astro`
-  - CV: `src/pages/cv/index.astro`
-  - Contact: `src/pages/contact/index.astro`
+</div>
 
-## Content Collections
+---
 
-Publications/Talks/Teaching/Projects are set up as content collections so you can add entries as Markdown files:
+This repository contains the source for my personal academic website:
+research, publications, talks, teaching, and writing.
 
-- `src/content/publications/`
-- `src/content/talks/`
-- `src/content/teaching/`
-- `src/content/projects/`
-- `src/content/writing/`
+## Built With
 
-See `src/content/README.md` for examples.
+[![Astro](https://img.shields.io/badge/Astro-5-BC52EE.svg?logo=astro&logoColor=white)](https://astro.build/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4.svg?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
-## Optional Environment Variables
+## License
 
-- `PUBLIC_GOOGLE_SITE_VERIFICATION`: Adds a Google Search Console verification meta tag.
-- `PUBLIC_PLAUSIBLE_DOMAIN`: Enables Plausible analytics script when set.
+Code is released under the [MIT License](LICENSE).
