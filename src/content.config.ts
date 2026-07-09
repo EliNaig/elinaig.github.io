@@ -1,9 +1,10 @@
 import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 const externalLink = z.string().url();
 
 const publications = defineCollection({
-	type: "content",
+	loader: glob({ pattern: "**/*.md", base: "./src/content/publications" }),
 	schema: z.object({
 		draft: z.boolean().default(false),
 		title: z.string(),
@@ -28,7 +29,7 @@ const publications = defineCollection({
 });
 
 const talks = defineCollection({
-	type: "content",
+	loader: glob({ pattern: "**/*.md", base: "./src/content/talks" }),
 	schema: z.object({
 		draft: z.boolean().default(false),
 		title: z.string(),
@@ -49,7 +50,7 @@ const talks = defineCollection({
 });
 
 const teaching = defineCollection({
-	type: "content",
+	loader: glob({ pattern: "**/*.md", base: "./src/content/teaching" }),
 	schema: z.object({
 		draft: z.boolean().default(false),
 		course: z.string(),
@@ -67,7 +68,7 @@ const teaching = defineCollection({
 });
 
 const projects = defineCollection({
-	type: "content",
+	loader: glob({ pattern: "**/*.md", base: "./src/content/projects" }),
 	schema: z.object({
 		draft: z.boolean().default(false),
 		title: z.string(),

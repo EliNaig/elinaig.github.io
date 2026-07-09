@@ -1,11 +1,19 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import BibEntry from "../components/BibEntry.astro";
+import SocialIcons from "../components/SocialIcons.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
 import { site } from "../lib/site";
 
-const facts = [
-	{ label: "Education", value: "B.S. Mathematics, Tulane University, expected 2027 · GPA 3.97 / 4.00" },
-	{ label: "Advisor", value: "Mahir Bilen Can, Tulane University", href: "https://mahirbilencan.github.io/" },
-];
+let publications: CollectionEntry<"publications">[] = [];
+try {
+	publications = await getCollection("publications");
+} catch {
+	publications = [];
+}
+const selectedPublications = publications
+	.filter((e) => !e.data.draft && e.data.selected)
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
 const structuredData = {
 	"@context": "https://schema.org",
@@ -20,7 +28,11 @@ const structuredData = {
 				"@type": "CollegeOrUniversity",
 				name: site.affiliation,
 			},
-			sameAs: [site.social.github, site.social.linkedin, site.social.orcid].filter(Boolean),
+			sameAs: [
+				site.social.github,
+				site.social.linkedin,
+				site.social.orcid,
+			].filter(Boolean),
 		},
 		{
 			"@type": "WebSite",
@@ -33,130 +45,149 @@ const structuredData = {
 
 <SiteLayout
 	title="Home"
-	description="Building post-quantum cryptography from algebraic theory to reproducible implementation."
+	description="Eli Naig is a mathematics undergraduate at Tulane University working on algebraic coding theory and post-quantum cryptography."
 	structuredData={structuredData}
 >
-	<div class="space-y-12">
-		<section class="max-w-3xl">
-			<p class="mb-4 text-sm uppercase tracking-[0.18em] text-zinc-500">Mathematics • Coding theory • Cryptography</p>
-			<h1>
-				I study algebraic coding theory and post-quantum cryptography.
-			</h1>
-			<p class="mt-6 max-w-2xl text-lg leading-8 text-zinc-700">
-				I’m {site.name}, a mathematics undergraduate at {site.affiliation}. My work centers on the metric and algebraic
-				structure of code families and on building reproducible systems for cryptographic research.
+	<div class="post">
+		<header class="post-header">
+			<h1 class="post-title"><strong>Eli</strong> Naig</h1>
+			<p class="desc">
+				Mathematics @ {site.affiliation} • coding theory • post-quantum cryptography
 			</p>
-			<div class="mt-8 flex flex-wrap gap-3">
-				<a class="btn-primary" href="/publications/">Publications</a>
-				<a class="btn-secondary" href="/cv/">Read CV</a>
-			</div>
-		</section>
+		</header>
 
-		<section class="section">
-			<dl class="grid gap-8 sm:grid-cols-2">
-				{facts.map((fact) => (
+		<article>
+			<div class="profile float-right">
+				<img
+					src={site.profileImage}
+					alt={`Portrait of ${site.name}`}
+					width="1600"
+					height="2400"
+					loading="eager"
+					decoding="async"
+					fetchpriority="high"
+				/>
+				<div class="more-info">
+					<p>{site.location}</p>
+					<br />
+					<p>{site.affiliation}</p>
+					<br />
+					<p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+				</div>
+			</div>
+
+			<div class="clearfix">
+				<p>
+					I'm a mathematics undergraduate at {site.affiliation},
+					working with <a href="https://mahirbilencan.github.io/"
+						>Mahir Bilen Can</a
+					> on algebraic coding theory and code-based post-quantum cryptography.
+					I also co-founded <a href="https://www.qsparclabs.com/"
+						>QSPARC Labs</a
+					>, where we build software based on this research.
+				</p>
+				<p>
+					This summer I am at the University of South Carolina's NSF
+					REU in quantum information science, working with <a
+						href="https://cse.sc.edu/~fenner/">Stephen Fenner</a
+					> on quantum position verification. I am applying to PhD programs
+					for Fall 2027. The best way to reach me is by email at <a
+						href={`mailto:${site.email}`}>{site.email}</a
+					>; my CV is <a href="/cv/">here</a>.
+				</p>
+			</div>
+
+			{
+				selectedPublications.length > 0 ? (
+					<>
+						<h2>
+							<a href="/publications/" style="color: inherit;">
+								Selected Publications
+							</a>
+						</h2>
+						<div class="publications">
+							<ol class="bibliography">
+								{selectedPublications.map((entry) => (
+									<BibEntry entry={entry} />
+								))}
+							</ol>
+						</div>
+					</>
+				) : null
+			}
+
+			<h2>Leadership</h2>
+			<div>
+				<div
+					class="flex flex-col gap-6 sm:flex-row sm:items-start"
+					style="margin-bottom: 2rem;"
+				>
+					<img
+						src="/images/tulane-scioly-logo.png"
+						alt="Tulane Science Olympiad logo"
+						class="h-24 w-24 shrink-0 object-contain"
+						loading="lazy"
+					/>
 					<div>
-						<dt class="text-sm font-medium uppercase tracking-[0.16em] text-zinc-500">{fact.label}</dt>
-						<dd class="mt-3 text-sm leading-6 text-zinc-700">
-							{fact.href ? <a href={fact.href}>{fact.value}</a> : fact.value}
-						</dd>
+						<h5>
+							Co-Founder and Vice President, Tulane Science
+							Olympiad
+						</h5>
+						<p class="text-muted" style="margin-bottom: 0.5rem;">
+							2024-Present
+						</p>
+						<p>
+							Co-founded Tulane’s first Science Olympiad
+							invitational and helped drive rapid growth in
+							Science Olympiad at Tulane and across Louisiana.
+							Work includes statewide outreach, tournament
+							organizing, volunteer coordination, campus-wide
+							space allocation across 60+ classrooms and
+							laboratories, and development of the official
+							competition website, all in support of an effort to
+							expand active Science Olympiad teams statewide.
+						</p>
+						<p>
+							<a href="https://www.tulanescioly.org/"
+								>tulanescioly.org</a
+							>
+						</p>
 					</div>
-				))}
-			</dl>
-		</section>
-
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Research focus</h2>
-				<div class="prose max-w-none">
-					<p>
-						I work on algebraic methods in coding theory and cryptography.
-					</p>
-					<ul>
-						<li><strong>Algebraic coding theory:</strong> structural and metric properties of code families.</li>
-						<li><strong>Algebraic geometry:</strong> foundations and examples that inform code structure.</li>
-						<li><strong>Post-quantum cryptography:</strong> code-based KEM design and analysis.</li>
-						<li><strong>Number theory and cryptography:</strong> mathematical tools for secure constructions.</li>
-						<li><strong>Reproducible systems:</strong> benchmark harnesses, conformance vectors, and experiment pipelines.</li>
-					</ul>
+				</div>
+				<div class="flex flex-col gap-6 sm:flex-row sm:items-start">
+					<img
+						src="/images/tulane-math-club-logo.png"
+						alt="Tulane Math Club logo"
+						class="h-24 w-24 shrink-0 object-contain"
+						loading="lazy"
+					/>
+					<div>
+						<h5>President, Tulane Math Club</h5>
+						<p class="text-muted" style="margin-bottom: 0.5rem;">
+							2026-2027
+						</p>
+						<p>
+							During the 2026-2027 academic year, I lead club
+							programming, coordination, student engagement, and
+							stewardship of the organization website.
+						</p>
+						<p>
+							<a href="https://tulanemathsociety.github.io/"
+								>tulanemathsociety.github.io</a
+							>
+						</p>
+					</div>
 				</div>
 			</div>
-		</section>
 
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Outside the technical work</h2>
-				<div class="prose max-w-none">
-					<p>
-						I’m drawn to scientific biography and computing history; favorites include <em>Surely You're Joking, Mr.
-						Feynman!</em>, <em>The Bit Player</em>, and <em>The Imitation Game</em>.
-					</p>
+			<div class="social">
+				<div class="contact-icons">
+					<SocialIcons />
+				</div>
+				<div class="contact-note">
+					The best way to reach me is by email.
 				</div>
 			</div>
-		</section>
-
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Leadership</h2>
-				<div class="min-w-0 divide-y divide-zinc-200">
-					<article class="grid gap-6 py-6 first:pt-0 sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-start">
-						<img
-							src="/images/tulane-scioly-logo.png"
-							alt="Tulane Science Olympiad logo"
-							class="h-24 w-24 shrink-0 object-contain"
-							loading="lazy"
-						/>
-						<div class="min-w-0">
-							<h3>Co-Founder and Vice President, Tulane Science Olympiad</h3>
-							<p class="mt-1 text-sm text-zinc-500">2024-Present</p>
-							<p class="mt-3 max-w-2xl">
-								Co-founded Tulane’s first Science Olympiad invitational and helped drive rapid growth in Science Olympiad
-								at Tulane and across Louisiana. Work includes statewide outreach, tournament organizing, volunteer
-								coordination, campus-wide space allocation across 60+ classrooms and laboratories, and development of the
-								official competition website, all in support of an effort to expand active Science Olympiad teams statewide.
-							</p>
-							<p class="mt-4 text-sm">
-								<a href="https://www.tulanescioly.org/">Visit tulanescioly.org</a>
-							</p>
-						</div>
-					</article>
-					<article class="grid gap-6 py-6 last:pb-0 sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-start">
-						<img
-							src="/images/tulane-math-club-logo.png"
-							alt="Tulane Math Club logo"
-							class="h-24 w-24 shrink-0 object-contain"
-							loading="lazy"
-						/>
-						<div class="min-w-0">
-							<h3>President, Tulane Math Club</h3>
-							<p class="mt-1 text-sm text-zinc-500">2026-2027</p>
-							<p class="mt-3 max-w-2xl">
-								During the 2026-2027 academic year, I lead club programming, coordination, student engagement, and
-								stewardship of the organization website.
-							</p>
-							<p class="mt-4 text-sm">
-								<a href="https://tulanemathsociety.github.io/">Visit tulanemathsociety.github.io</a>
-							</p>
-						</div>
-					</article>
-				</div>
-			</div>
-		</section>
-
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Collaborate</h2>
-				<div class="min-w-0">
-					<p class="max-w-2xl text-zinc-700">
-						I’m open to research collaboration in coding theory and post-quantum cryptography, seminar talks and technical
-						discussions, project work, and graduate-level opportunities in mathematics.
-					</p>
-					<p class="mt-4 max-w-2xl text-zinc-700">
-						If you’re reaching out about any of these, <a href={`mailto:${site.email}`}>email me</a>. A couple of sentences on
-						context and timeline help.
-					</p>
-				</div>
-			</div>
-		</section>
+		</article>
 	</div>
 </SiteLayout>

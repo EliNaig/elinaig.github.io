@@ -1,0 +1,59 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+type Props = {
+	entry: CollectionEntry<"publications">;
+};
+
+const { entry } = Astro.props;
+const data = entry.data;
+const year = String(data.date.getUTCFullYear());
+const authors = data.authors ? data.authors.split(",").map((a) => a.trim()) : [];
+
+const doiHref = data.links?.doi
+	? data.links.doi.startsWith("http")
+		? data.links.doi
+		: `https://doi.org/${data.links.doi}`
+	: null;
+
+const links = [
+	data.links?.pdf ? { label: "PDF", href: data.links.pdf } : null,
+	data.links?.arxiv ? { label: "arXiv", href: data.links.arxiv } : null,
+	data.links?.eprint ? { label: "ePrint", href: data.links.eprint } : null,
+	doiHref ? { label: "DOI", href: doiHref } : null,
+	data.links?.code ? { label: "Code", href: data.links.code } : null,
+	data.links?.project ? { label: "Project", href: data.links.project } : null,
+].filter((l): l is { label: string; href: string } => l !== null);
+---
+
+<li>
+	<div class="title">{data.title}</div>
+	{authors.length > 0 ? (
+		<div class="author">
+			{authors.map((author, i) => (
+				<>
+					{author.includes("Naig") ? <em>{author}</em> : author}
+					{i < authors.length - 1 ? ", " : ""}
+				</>
+			))}
+		</div>
+	) : null}
+	<div class="periodical">
+		{data.venue ? (
+			<>
+				<em>{data.venue}</em>, {year}
+			</>
+		) : (
+			year
+		)}
+	</div>
+	{links.length > 0 ? (
+		<div class="links">
+			{links.map((link) => (
+				<a class="btn" href={link.href} role="button">
+					{link.label}
+				</a>
+			))}
+		</div>
+	) : null}
+</li>

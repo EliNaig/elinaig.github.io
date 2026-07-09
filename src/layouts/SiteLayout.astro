@@ -1,7 +1,6 @@
 ---
 import Header from "../components/Header.astro";
 import Footer from "../components/Footer.astro";
-import ProfileSidebar from "../components/ProfileSidebar.astro";
 import "../styles/global.css";
 import { site } from "../lib/site";
 
@@ -40,6 +39,18 @@ const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
 		{noIndex ? <meta name="robots" content="noindex, nofollow" /> : null}
 		{googleVerification ? <meta name="google-site-verification" content={googleVerification} /> : null}
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<script is:inline>
+			(() => {
+				const setting = localStorage.getItem("theme-setting") || "system";
+				document.documentElement.setAttribute("data-theme-setting", setting);
+				if (setting === "dark" || setting === "light") {
+					document.documentElement.setAttribute("data-theme", setting);
+				}
+			})();
+		</script>
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" />
 		<link
 			rel="stylesheet"
 			href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css"
@@ -74,15 +85,8 @@ const plausibleDomain = import.meta.env.PUBLIC_PLAUSIBLE_DOMAIN;
 	</head>
 	<body>
 		<Header />
-		<main id="content" class="container pb-24 pt-12 lg:pt-16">
-			<div class="grid gap-12 lg:grid-cols-[13rem_minmax(0,1fr)] lg:items-start lg:gap-16">
-				<div class="lg:sticky lg:top-24 lg:self-start">
-					<ProfileSidebar />
-				</div>
-				<div class="min-w-0">
-					<slot />
-				</div>
-			</div>
+		<main id="content" class="page-container" style="margin-top: 3rem;">
+			<slot />
 		</main>
 		<Footer />
 	</body>
