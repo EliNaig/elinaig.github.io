@@ -15,13 +15,6 @@ const selectedPublications = publications
 	.filter((e) => !e.data.draft && e.data.selected)
 	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
 
-const news = [
-	{
-		date: "Jan 2026",
-		html: `New preprint with Mahir Bilen Can, <a href="https://eprint.iacr.org/2026/665"><em>Applications of Bruhat-Chevalley-Renner Decomposition to Metric-Aware Code-Based Cryptography</em></a>, posted to the Cryptology ePrint Archive (2026/665).`,
-	},
-];
-
 const structuredData = {
 	"@context": "https://schema.org",
 	"@graph": [
@@ -102,22 +95,6 @@ const structuredData = {
 						href={`mailto:${site.email}`}>{site.email}</a
 					>; my CV is <a href="/cv/">here</a>.
 				</p>
-			</div>
-
-			<h2>News</h2>
-			<div class="news">
-				<table>
-					<tbody>
-						{
-							news.map((item) => (
-								<tr>
-									<th scope="row">{item.date}</th>
-									<td set:html={item.html} />
-								</tr>
-							))
-						}
-					</tbody>
-				</table>
 			</div>
 
 			{
