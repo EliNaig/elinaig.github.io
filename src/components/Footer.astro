@@ -4,16 +4,8 @@ import { site } from "../lib/site";
 const year = new Date().getFullYear();
 ---
 
-<footer class="border-t border-zinc-200">
-	<div class="container py-8 text-sm text-zinc-500">
-		<div class="flex flex-wrap items-center justify-between gap-4">
-			<p>© {year} {site.name}</p>
-			<div class="flex flex-wrap items-center gap-4">
-				<a class="no-underline hover:underline" href={`mailto:${site.email}`}>Email</a>
-				{site.social.github ? <a class="no-underline hover:underline" href={site.social.github}>GitHub</a> : null}
-				{site.social.linkedin ? <a class="no-underline hover:underline" href={site.social.linkedin}>LinkedIn</a> : null}
-				{site.social.orcid ? <a class="no-underline hover:underline" href={site.social.orcid}>ORCID</a> : null}
-			</div>
-		</div>
+<footer class="site-footer">
+	<div class="page-container">
+		© Copyright {year} {site.name}.
 	</div>
 </footer>

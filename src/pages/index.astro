@@ -1,5 +1,7 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import BibEntry from "../components/BibEntry.astro";
+import SocialIcons from "../components/SocialIcons.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 import { site } from "../lib/site";
 
@@ -17,18 +19,6 @@ const news = [
 	{
 		date: "Jan 2026",
 		html: `New preprint with Mahir Bilen Can, <a href="https://eprint.iacr.org/2026/665"><em>Applications of Bruhat-Chevalley-Renner Decomposition to Metric-Aware Code-Based Cryptography</em></a>, posted to the Cryptology ePrint Archive (2026/665).`,
-	},
-	{
-		date: "Dec 2025",
-		html: `Gave a research update at Tulane on NRT metrics and a quasi-circulant Niederreiter-type KEM.`,
-	},
-	{
-		date: "Jul 2025",
-		html: `Lectured on hyperplane arrangements, lattices, and their connections to coding theory at the LSU RTG Summer Math Program in Baton Rouge.`,
-	},
-	{
-		date: "Spring 2025",
-		html: `Started the Tulane Math Circle, a weekly proof-based problem-solving seminar.`,
 	},
 ];
 
@@ -54,10 +44,6 @@ const structuredData = {
 		},
 	],
 };
-
-function publicationYear(date: Date) {
-	return String(date.getUTCFullYear());
-}
 ---
 
 <SiteLayout
@@ -65,20 +51,39 @@ function publicationYear(date: Date) {
 	description="Eli Naig is a mathematics undergraduate at Tulane University working on algebraic coding theory and post-quantum cryptography."
 	structuredData={structuredData}
 >
-	<div class="space-y-12">
-		<section class="max-w-3xl">
-			<h1>Eli Naig</h1>
-			<div class="prose mt-6 max-w-2xl">
+	<div class="post">
+		<header class="post-header">
+			<h1 class="post-title"><strong>Eli</strong> Naig</h1>
+			<p class="desc">Mathematics @ {site.affiliation} • coding theory • post-quantum cryptography</p>
+		</header>
+
+		<article>
+			<div class="profile float-right">
+				<img
+					src={site.profileImage}
+					alt={`Portrait of ${site.name}`}
+					width="1600"
+					height="2400"
+					loading="eager"
+					decoding="async"
+					fetchpriority="high"
+				/>
+				<div class="more-info">
+					<p>{site.location}</p>
+					<br />
+					<p>{site.affiliation}</p>
+					<br />
+					<p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+				</div>
+			</div>
+
+			<div class="clearfix">
 				<p>
-					I'm a mathematics undergraduate at {site.affiliation}, where I work with
-					<a href="https://mahirbilencan.github.io/">Mahir Bilen Can</a> on algebraic coding theory and post-quantum
+					I'm a mathematics undergraduate at {site.affiliation}, where I work
+					with <a href="https://mahirbilencan.github.io/">Mahir Bilen Can</a> on algebraic coding theory and post-quantum
 					cryptography. Lately I've been thinking about codes in metrics other than the Hamming metric, and about what
 					the algebraic structure of a code family means for code-based cryptosystems. Our first paper together is a
 					preprint on the <a href="https://eprint.iacr.org/2026/665">Cryptology ePrint Archive</a>.
-				</p>
-				<p>
-					I'm also interested in algebraic geometry and number theory, mostly as tools for the questions above, and I
-					run the Tulane Math Circle, a weekly proof-based problem-solving seminar.
 				</p>
 				<p>
 					Outside of math I read scientific biography and computing history; recent favorites are <em>Surely You're
@@ -86,95 +91,80 @@ function publicationYear(date: Date) {
 					is by email at <a href={`mailto:${site.email}`}>{site.email}</a>. My CV is <a href="/cv/">here</a>.
 				</p>
 			</div>
-		</section>
 
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>News</h2>
-				<dl class="min-w-0 space-y-4">
-					{news.map((item) => (
-						<div class="grid gap-x-6 gap-y-1 sm:grid-cols-[6.5rem_minmax(0,1fr)]">
-							<dt class="text-sm leading-7 text-zinc-500">{item.date}</dt>
-							<dd class="min-w-0 leading-7 text-zinc-700" set:html={item.html} />
-						</div>
-					))}
-				</dl>
+			<h2>News</h2>
+			<div class="news">
+				<table>
+					<tbody>
+						{news.map((item) => (
+							<tr>
+								<th scope="row">{item.date}</th>
+								<td set:html={item.html} />
+							</tr>
+						))}
+					</tbody>
+				</table>
 			</div>
-		</section>
 
-		{selectedPublications.length > 0 ? (
-			<section class="section">
-				<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-					<h2>Selected publications</h2>
-					<div class="min-w-0">
-						<ul class="space-y-4">
-							{selectedPublications.map((e) => (
-								<li class="leading-7 text-zinc-800">
-									{e.data.authors ? `${e.data.authors}. ` : ""}
-									{`(${publicationYear(e.data.date)}). `}
-									<span>{e.data.title}.</span>
-									{e.data.venue ? ` ${e.data.venue}.` : ""}
-									{e.data.links?.pdf ? <span> <a href={e.data.links.pdf}>[PDF]</a></span> : null}
-									{e.data.links?.arxiv ? <span> <a href={e.data.links.arxiv}>[arXiv]</a></span> : null}
-									{e.data.links?.eprint ? <span> <a href={e.data.links.eprint}>[ePrint]</a></span> : null}
-									{e.data.links?.code ? <span> <a href={e.data.links.code}>[code]</a></span> : null}
-								</li>
+			{selectedPublications.length > 0 ? (
+				<>
+					<h2><a href="/publications/" style="color: inherit;">Selected Publications</a></h2>
+					<div class="publications">
+						<ol class="bibliography">
+							{selectedPublications.map((entry) => (
+								<BibEntry entry={entry} />
 							))}
-						</ul>
-						<p class="mt-6 text-sm">
-							<a href="/publications/">All publications</a>
+						</ol>
+					</div>
+				</>
+			) : null}
+
+			<h2>Leadership</h2>
+			<div>
+				<div class="flex flex-col gap-6 sm:flex-row sm:items-start" style="margin-bottom: 2rem;">
+					<img
+						src="/images/tulane-scioly-logo.png"
+						alt="Tulane Science Olympiad logo"
+						class="h-24 w-24 shrink-0 object-contain"
+						loading="lazy"
+					/>
+					<div>
+						<h5>Co-Founder and Vice President, Tulane Science Olympiad</h5>
+						<p class="text-muted" style="margin-bottom: 0.5rem;">2024-Present</p>
+						<p>
+							Co-founded Tulane’s first Science Olympiad invitational and helped drive rapid growth in Science Olympiad
+							at Tulane and across Louisiana. Work includes statewide outreach, tournament organizing, volunteer
+							coordination, campus-wide space allocation across 60+ classrooms and laboratories, and development of the
+							official competition website, all in support of an effort to expand active Science Olympiad teams statewide.
 						</p>
+						<p><a href="https://www.tulanescioly.org/">tulanescioly.org</a></p>
 					</div>
 				</div>
-			</section>
-		) : null}
-
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Leadership</h2>
-				<div class="min-w-0 divide-y divide-zinc-200">
-					<article class="grid gap-6 py-6 first:pt-0 sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-start">
-						<img
-							src="/images/tulane-scioly-logo.png"
-							alt="Tulane Science Olympiad logo"
-							class="h-24 w-24 shrink-0 object-contain"
-							loading="lazy"
-						/>
-						<div class="min-w-0">
-							<h3>Co-Founder and Vice President, Tulane Science Olympiad</h3>
-							<p class="mt-1 text-sm text-zinc-500">2024-Present</p>
-							<p class="mt-3 max-w-2xl">
-								Co-founded Tulane’s first Science Olympiad invitational and helped drive rapid growth in Science Olympiad
-								at Tulane and across Louisiana. Work includes statewide outreach, tournament organizing, volunteer
-								coordination, campus-wide space allocation across 60+ classrooms and laboratories, and development of the
-								official competition website, all in support of an effort to expand active Science Olympiad teams statewide.
-							</p>
-							<p class="mt-4 text-sm">
-								<a href="https://www.tulanescioly.org/">Visit tulanescioly.org</a>
-							</p>
-						</div>
-					</article>
-					<article class="grid gap-6 py-6 last:pb-0 sm:grid-cols-[7rem_minmax(0,1fr)] sm:items-start">
-						<img
-							src="/images/tulane-math-club-logo.png"
-							alt="Tulane Math Club logo"
-							class="h-24 w-24 shrink-0 object-contain"
-							loading="lazy"
-						/>
-						<div class="min-w-0">
-							<h3>President, Tulane Math Club</h3>
-							<p class="mt-1 text-sm text-zinc-500">2026-2027</p>
-							<p class="mt-3 max-w-2xl">
-								During the 2026-2027 academic year, I lead club programming, coordination, student engagement, and
-								stewardship of the organization website.
-							</p>
-							<p class="mt-4 text-sm">
-								<a href="https://tulanemathsociety.github.io/">Visit tulanemathsociety.github.io</a>
-							</p>
-						</div>
-					</article>
+				<div class="flex flex-col gap-6 sm:flex-row sm:items-start">
+					<img
+						src="/images/tulane-math-club-logo.png"
+						alt="Tulane Math Club logo"
+						class="h-24 w-24 shrink-0 object-contain"
+						loading="lazy"
+					/>
+					<div>
+						<h5>President, Tulane Math Club</h5>
+						<p class="text-muted" style="margin-bottom: 0.5rem;">2026-2027</p>
+						<p>
+							During the 2026-2027 academic year, I lead club programming, coordination, student engagement, and
+							stewardship of the organization website.
+						</p>
+						<p><a href="https://tulanemathsociety.github.io/">tulanemathsociety.github.io</a></p>
+					</div>
 				</div>
 			</div>
-		</section>
+
+			<div class="social">
+				<div class="contact-icons">
+					<SocialIcons />
+				</div>
+				<div class="contact-note">The best way to reach me is by email.</div>
+			</div>
+		</article>
 	</div>
 </SiteLayout>

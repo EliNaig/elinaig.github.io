@@ -1,289 +1,534 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial,
-    "Noto Sans", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
-  --font-serif: ui-serif, Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: "Roboto", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+}
+
+/*
+ * Design tokens ported from al-folio (https://github.com/alshedivat/al-folio),
+ * _sass/_themes.scss and _sass/_variables.scss of al_folio_core 1.0.11.
+ * Accent swapped from the theme's default purple to its stock blue.
+ */
+:root {
+  color-scheme: light;
+  --global-bg-color: #ffffff;
+  --global-code-bg-color: rgba(0, 118, 223, 0.05);
+  --global-text-color: #000000;
+  --global-text-color-light: #828282;
+  --global-theme-color: #0076df;
+  --global-hover-color: #0076df;
+  --global-hover-text-color: #ffffff;
+  --global-footer-bg-color: #1c1c1d;
+  --global-footer-text-color: #e8e8e8;
+  --global-footer-link-color: #ffffff;
+  --global-divider-color: rgba(0, 0, 0, 0.1);
+  --global-card-bg-color: #ffffff;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --global-bg-color: #1c1c1d;
+  --global-code-bg-color: #2c3237;
+  --global-text-color: #e8e8e8;
+  --global-text-color-light: #828282;
+  --global-theme-color: #2698ba;
+  --global-hover-color: #2698ba;
+  --global-hover-text-color: #ffffff;
+  --global-footer-bg-color: #e8e8e8;
+  --global-footer-text-color: #1c1c1d;
+  --global-footer-link-color: #000000;
+  --global-divider-color: #424246;
+  --global-card-bg-color: #212529;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
+    --global-bg-color: #1c1c1d;
+    --global-code-bg-color: #2c3237;
+    --global-text-color: #e8e8e8;
+    --global-text-color-light: #828282;
+    --global-theme-color: #2698ba;
+    --global-hover-color: #2698ba;
+    --global-hover-text-color: #ffffff;
+    --global-footer-bg-color: #e8e8e8;
+    --global-footer-text-color: #1c1c1d;
+    --global-footer-link-color: #000000;
+    --global-divider-color: #424246;
+    --global-card-bg-color: #212529;
+  }
+}
+
+/* Theme toggle icon visibility, mirroring al-folio's data-theme-setting states */
+#light-toggle-system,
+#light-toggle-dark,
+#light-toggle-light {
+  display: none;
+}
+
+:root[data-theme-setting="system"] #light-toggle-system,
+:root:not([data-theme-setting]) #light-toggle-system {
+  display: inline-flex;
+}
+
+:root[data-theme-setting="dark"] #light-toggle-dark {
+  display: inline-flex;
+}
+
+:root[data-theme-setting="light"] #light-toggle-light {
+  display: inline-flex;
 }
 
 @layer base {
-  :root {
-    color-scheme: light dark;
-  }
-
   html {
     scroll-behavior: smooth;
     scrollbar-gutter: stable;
   }
 
   body {
-    @apply bg-stone-50 font-sans text-zinc-950 antialiased;
-  }
-
-  ::selection {
-    @apply bg-zinc-950 text-stone-50;
-  }
-
-  a {
-    @apply text-zinc-950 underline decoration-zinc-300 underline-offset-[3px] transition-colors;
-  }
-
-  a:hover {
-    @apply decoration-zinc-950;
-  }
-
-  a:focus-visible {
-    @apply outline-none ring-2 ring-zinc-950 ring-offset-2 ring-offset-stone-50;
+    background-color: var(--global-bg-color);
+    color: var(--global-text-color);
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.5;
   }
 
   h1,
   h2,
-  h3 {
-    @apply text-zinc-950;
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--global-text-color);
+    font-weight: 300;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+    scroll-margin-top: 66px;
   }
 
   h1 {
-    @apply font-serif text-4xl font-normal leading-[1.06] tracking-tight sm:text-5xl;
+    font-size: 2.5rem;
   }
 
   h2 {
-    @apply text-sm font-medium uppercase tracking-[0.18em] text-zinc-500;
+    font-size: 2rem;
   }
 
   h3 {
-    @apply font-serif text-2xl font-normal tracking-tight;
+    font-size: 1.75rem;
   }
 
-  p {
-    @apply leading-7 text-zinc-700;
+  h4 {
+    font-size: 1.5rem;
+  }
+
+  h5 {
+    font-size: 1.25rem;
+  }
+
+  h6 {
+    font-size: 1rem;
+  }
+
+  p,
+  ol,
+  ul {
+    margin-bottom: 1rem;
+  }
+
+  a {
+    color: var(--global-theme-color);
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: var(--global-hover-color);
+    text-decoration: underline;
+  }
+
+  a:focus-visible {
+    outline: 2px solid var(--global-theme-color);
+    outline-offset: 2px;
   }
 
   hr {
-    @apply border-zinc-200;
+    border: 0;
+    border-top: 1px solid var(--global-divider-color);
   }
 
   code {
-    @apply rounded bg-zinc-100 px-1 py-0.5 text-[0.9em] text-zinc-900;
+    background-color: var(--global-code-bg-color);
+    border-radius: 3px;
+    padding: 0.1rem 0.3rem;
+    font-size: 0.9em;
   }
 
-  @media (prefers-color-scheme: dark) {
-    body {
-      @apply bg-zinc-950 text-zinc-100;
-    }
+  table td,
+  table th {
+    font-size: 1rem;
+    padding: 0.45rem 1rem 0.45rem 0;
+    border-top: 1px solid var(--global-divider-color);
+  }
 
-    ::selection {
-      @apply bg-zinc-100 text-zinc-950;
-    }
+  table th {
+    font-weight: 600;
+    text-align: left;
+  }
 
-    a {
-      @apply text-zinc-100 decoration-zinc-600;
-    }
-
-    a:hover {
-      @apply decoration-zinc-300;
-    }
-
-    a:focus-visible {
-      @apply ring-zinc-100 ring-offset-zinc-950;
-    }
-
-    h1,
-    h2,
-    h3 {
-      @apply text-zinc-50;
-    }
-
-    h2 {
-      @apply text-zinc-400;
-    }
-
-    p {
-      @apply text-zinc-300;
-    }
-
-    hr {
-      @apply border-zinc-800;
-    }
-
-    code {
-      @apply bg-zinc-800 text-zinc-100;
-    }
+  blockquote {
+    border-left: 5px solid var(--global-theme-color);
+    margin: 1.5em 0;
+    padding: 1em;
+    font-size: 1.2rem;
   }
 }
 
 @layer components {
-  .container {
-    @apply mx-auto w-full max-w-5xl px-5;
+  .page-container {
+    width: 100%;
+    max-width: 930px;
+    margin-inline: auto;
+    padding-inline: 15px;
   }
 
-  .section {
-    @apply border-t border-zinc-200 pt-8;
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    z-index: 100;
   }
 
-  .btn-primary {
-    @apply inline-flex items-center justify-center rounded-full bg-zinc-950 px-4 py-2 text-sm font-medium text-stone-50 no-underline transition hover:bg-zinc-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-50;
+  .skip-link:focus {
+    left: 1rem;
+    top: 1rem;
+    position: fixed;
+    background: var(--global-bg-color);
+    color: var(--global-text-color);
+    border: 1px solid var(--global-divider-color);
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.25rem;
   }
 
-  .btn-secondary {
-    @apply inline-flex items-center justify-center rounded-full border border-zinc-300 px-4 py-2 text-sm font-medium text-zinc-950 no-underline transition hover:border-zinc-950 hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-zinc-950 focus-visible:ring-offset-2 focus-visible:ring-offset-stone-50;
+  /* Navbar (al-folio _sass/_navbar.scss) */
+  .site-navbar {
+    position: sticky;
+    top: 0;
+    z-index: 1020;
+    background-color: var(--global-bg-color);
+    opacity: 0.95;
+    border-bottom: 1px solid var(--global-divider-color);
   }
 
-  .pill {
-    @apply inline-flex items-center rounded-full border border-zinc-200 px-3 py-1 text-xs font-medium text-zinc-600 no-underline transition hover:border-zinc-400 hover:text-zinc-950;
+  .site-navbar-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-block: 0.5rem;
   }
 
-  .prose {
-    @apply max-w-none text-[16px] leading-7 text-zinc-700;
+  .navbar-brand {
+    color: var(--global-text-color);
+    font-size: 1.25rem;
+    font-weight: 300;
+    white-space: nowrap;
+    padding-block: 0.3125rem;
   }
 
-  .prose > * + * {
-    @apply mt-4;
+  .navbar-brand strong {
+    font-weight: 700;
   }
 
-  .prose h1 {
-    @apply mb-4;
+  .navbar-brand.social {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding-block: 0;
   }
 
-  .prose h2 {
-    @apply mt-10 text-sm font-medium uppercase tracking-[0.18em] text-zinc-500;
+  .navbar-brand.social a {
+    color: var(--global-text-color);
+    display: inline-flex;
   }
 
-  .prose h3 {
-    @apply mt-8 font-serif text-2xl font-normal tracking-tight text-zinc-950;
+  .navbar-brand.social a:hover {
+    color: var(--global-theme-color);
   }
 
-  .prose ul {
-    @apply list-disc pl-5;
+  .navbar-brand.social svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    fill: currentColor;
   }
 
-  .prose ol {
-    @apply list-decimal pl-5;
+  .site-navbar a:hover {
+    text-decoration: none;
+    color: var(--global-hover-color);
   }
 
-  .prose li {
-    @apply mt-2;
+  .navbar-nav {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
   }
 
-  .prose blockquote {
-    @apply border-l border-zinc-300 pl-4 text-zinc-600;
+  .nav-link {
+    display: block;
+    color: var(--global-text-color);
+    padding: 0.5rem;
+    font-weight: 300;
   }
 
-  :where(.prose) table {
-    @apply w-full border-collapse text-sm;
+  .nav-link.active {
+    font-weight: 700;
+    color: var(--global-theme-color);
   }
 
-  :where(.prose) th {
-    @apply border-b border-zinc-200 py-2 pr-3 text-left font-medium text-zinc-950;
+  #light-toggle {
+    padding: 0;
+    border: 0;
+    background-color: inherit;
+    color: var(--global-text-color);
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
-  :where(.prose) td {
-    @apply border-b border-zinc-200 py-2 pr-3 align-top text-zinc-700;
+  #light-toggle:hover {
+    color: var(--global-hover-color);
   }
 
-  @media (prefers-color-scheme: dark) {
-    .section {
-      @apply border-zinc-800;
+  /* Mobile menu (details-based hamburger, styled like al-folio's toggler) */
+  .navbar-toggler {
+    cursor: pointer;
+    list-style: none;
+    padding: 0.25rem 0.75rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 4px;
+  }
+
+  .navbar-toggler::marker,
+  .navbar-toggler::-webkit-details-marker {
+    display: none;
+  }
+
+  .navbar-toggler .icon-bar {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background-color: var(--global-text-color);
+    border-radius: 1px;
+    transition: all 0.2s;
+  }
+
+  details[open] .navbar-toggler .top-bar {
+    transform: translateY(6px) rotate(45deg);
+  }
+
+  details[open] .navbar-toggler .middle-bar {
+    opacity: 0;
+  }
+
+  details[open] .navbar-toggler .bottom-bar {
+    transform: translateY(-6px) rotate(-45deg);
+  }
+
+  .mobile-menu {
+    position: absolute;
+    right: 15px;
+    margin-top: 0.5rem;
+    min-width: 10rem;
+    background-color: var(--global-bg-color);
+    border: 1px solid var(--global-divider-color);
+    border-radius: 0.25rem;
+    padding: 0.5rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
+  }
+
+  .mobile-menu .nav-link {
+    padding: 0.5rem 0.75rem;
+  }
+
+  /* About page profile (al-folio _sass/_components.scss) */
+  .profile {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+
+  .profile img {
+    width: 100%;
+    border-radius: 0.25rem;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.16), 0 2px 10px rgba(0, 0, 0, 0.12);
+  }
+
+  .profile .more-info {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.85rem;
+  }
+
+  .profile .more-info p {
+    display: inline-block;
+    margin: 0;
+  }
+
+  @media (min-width: 576px) {
+    .profile {
+      width: 30%;
     }
 
-    .btn-primary {
-      @apply bg-zinc-100 text-zinc-950 hover:bg-white focus-visible:ring-zinc-100 focus-visible:ring-offset-zinc-950;
-    }
-
-    .btn-secondary {
-      @apply border-zinc-600 text-zinc-100 hover:border-zinc-400 hover:bg-zinc-900 focus-visible:ring-zinc-100 focus-visible:ring-offset-zinc-950;
-    }
-
-    .pill {
-      @apply border-zinc-700 text-zinc-400 hover:border-zinc-500 hover:text-zinc-100;
-    }
-
-    .prose {
-      @apply text-zinc-300;
-    }
-
-    .prose h2 {
-      @apply text-zinc-400;
-    }
-
-    .prose h3 {
-      @apply text-zinc-50;
-    }
-
-    .prose blockquote {
-      @apply border-zinc-700 text-zinc-400;
-    }
-
-    :where(.prose) th {
-      @apply border-zinc-800 text-zinc-50;
-    }
-
-    :where(.prose) td {
-      @apply border-zinc-800 text-zinc-300;
+    .profile.float-right {
+      float: right;
+      margin-left: 1rem;
     }
   }
-}
 
-@layer utilities {
-  @media (prefers-color-scheme: dark) {
-    .bg-white {
-      @apply bg-zinc-900;
-    }
+  .clearfix::after {
+    content: "";
+    display: block;
+    clear: both;
+  }
 
-    .bg-stone-50,
-    .bg-zinc-50,
-    .bg-zinc-100 {
-      @apply bg-zinc-900;
-    }
+  .post-title {
+    margin-bottom: 0;
+  }
 
-    .text-zinc-950,
-    .text-zinc-900 {
-      @apply text-zinc-50;
-    }
+  .desc {
+    color: var(--global-text-color-light);
+    margin-bottom: 2rem;
+  }
 
-    .text-zinc-800 {
-      @apply text-zinc-300;
-    }
+  .text-muted {
+    color: var(--global-text-color-light);
+  }
 
-    .text-zinc-700 {
-      @apply text-zinc-400;
-    }
+  /* News table (al-folio _includes/news.liquid) */
+  .news table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+  }
 
-    .text-zinc-600 {
-      @apply text-zinc-400;
-    }
+  .news table th,
+  .news table td {
+    border: 0;
+    padding: 0.6rem 0.3rem;
+    vertical-align: top;
+  }
 
-    .text-zinc-500 {
-      @apply text-zinc-500;
-    }
+  .news table th {
+    width: 20%;
+    font-weight: 600;
+  }
 
-    .border-zinc-200,
-    .border-zinc-200\/80,
-    .border-zinc-300 {
-      @apply border-zinc-800;
-    }
+  /* Publications (al-folio _sass/_publications.scss) */
+  .publications h1 {
+    color: var(--global-theme-color);
+    font-size: 2rem;
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 1em;
+  }
 
-    .hover\:bg-zinc-50:hover {
-      @apply bg-zinc-800;
-    }
+  .publications h2.bibliography {
+    color: var(--global-divider-color);
+    border-top: 1px solid var(--global-divider-color);
+    padding-top: 1rem;
+    margin-top: 2rem;
+    text-align: right;
+  }
 
-    .hover\:border-zinc-300:hover,
-    .hover\:border-zinc-400:hover,
-    .hover\:border-zinc-900:hover,
-    .hover\:border-zinc-950:hover {
-      @apply border-zinc-500;
-    }
+  .publications ol.bibliography {
+    list-style: none;
+    padding: 0;
+    margin-top: 0;
+  }
 
-    .hover\:bg-zinc-800:hover,
-    .hover\:bg-zinc-900:hover {
-      @apply bg-zinc-200;
-    }
+  .publications ol.bibliography li {
+    margin-bottom: 1.5rem;
+  }
 
-    .hover\:bg-white:hover {
-      @apply bg-zinc-800;
-    }
+  .publications .title {
+    font-weight: bolder;
+  }
 
-    .hover\:text-zinc-950:hover {
-      @apply text-zinc-100;
-    }
+  .publications .author > em {
+    border-bottom: 1px solid;
+    font-style: normal;
+  }
+
+  .publications .periodical {
+    color: var(--global-text-color);
+  }
+
+  .publications .links {
+    margin-top: 0.25rem;
+  }
+
+  .publications .links a.btn {
+    display: inline-block;
+    color: var(--global-text-color);
+    border: 1px solid var(--global-text-color);
+    border-radius: 0.125rem;
+    font-size: 0.75rem;
+    padding: 0.25rem 1rem;
+    margin-right: 0.375rem;
+    margin-bottom: 0.375rem;
+  }
+
+  .publications .links a.btn:hover {
+    color: var(--global-theme-color);
+    border-color: var(--global-theme-color);
+    text-decoration: none;
+  }
+
+  /* Social icons (al-folio about page); scoped so .navbar-brand.social is unaffected */
+  .post .social {
+    text-align: center;
+    margin-top: 3rem;
+  }
+
+  .social .contact-icons {
+    display: flex;
+    justify-content: center;
+    gap: 1.25rem;
+  }
+
+  .social .contact-icons a {
+    color: var(--global-text-color);
+  }
+
+  .social .contact-icons a:hover {
+    color: var(--global-theme-color);
+  }
+
+  .social .contact-icons svg {
+    width: 3rem;
+    height: 3rem;
+    fill: currentColor;
+  }
+
+  .social .contact-note {
+    color: var(--global-text-color-light);
+    font-size: 0.8rem;
+    margin-top: 0.75rem;
+  }
+
+  /* Footer (al-folio footer.sticky-bottom) */
+  .site-footer {
+    border-top: 1px solid var(--global-divider-color);
+    padding-top: 40px;
+    padding-bottom: 40px;
+    margin-top: 4rem;
+    font-size: 0.9rem;
+  }
+
+  .site-footer .page-container {
+    text-align: center;
   }
 }

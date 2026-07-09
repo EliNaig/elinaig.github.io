@@ -1,5 +1,6 @@
 ---
 import SiteLayout from "../../layouts/SiteLayout.astro";
+import BibEntry from "../../components/BibEntry.astro";
 import { getCollection, type CollectionEntry } from "astro:content";
 
 let entries: CollectionEntry<"publications">[] = [];
@@ -10,84 +11,54 @@ try {
 }
 entries = entries.filter((e) => !e.data.draft);
 entries.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
-const visibleEntries = entries;
-const releasedEntries = entries.filter((e) => e.data.status === "published");
-const workingEntries = visibleEntries.filter((e) => e.data.status !== "published");
-const publishedEntries = visibleEntries.filter((e) => e.data.status === "published");
 
-const publicationJsonLd = releasedEntries.map((entry) => ({
-	"@context": "https://schema.org",
-	"@type": "ScholarlyArticle",
-	headline: entry.data.title,
-	author: entry.data.authors ? entry.data.authors.split(",").map((name: string) => ({ "@type": "Person", name: name.trim() })) : undefined,
-	datePublished: entry.data.date.toISOString(),
-	isPartOf: entry.data.venue,
-	description: entry.data.summary,
-	url: entry.data.links?.pdf,
-}));
+const years = [...new Set(entries.map((e) => e.data.date.getUTCFullYear()))];
 
-function publicationYear(date: Date) {
-	return String(date.getUTCFullYear());
-}
+const publicationJsonLd = entries
+	.filter((e) => e.data.status === "published")
+	.map((entry) => ({
+		"@context": "https://schema.org",
+		"@type": "ScholarlyArticle",
+		headline: entry.data.title,
+		author: entry.data.authors
+			? entry.data.authors.split(",").map((name: string) => ({ "@type": "Person", name: name.trim() }))
+			: undefined,
+		datePublished: entry.data.date.toISOString(),
+		isPartOf: entry.data.venue,
+		description: entry.data.summary,
+		url: entry.data.links?.pdf,
+	}));
 ---
 
 <SiteLayout title="Publications" description="Preprints, working papers, and publications by Eli Naig.">
 	{publicationJsonLd.length > 0 ? (
 		<script type="application/ld+json" is:inline set:html={JSON.stringify(publicationJsonLd)}></script>
 	) : null}
-	<section class="max-w-5xl">
-		<h1>Publications</h1>
-		<p class="mt-4 max-w-3xl text-zinc-800">
-			My preprints and publications are listed below.
-		</p>
+	<div class="post">
+		<header class="post-header">
+			<h1 class="post-title">Publications</h1>
+			<p class="desc">Publications in reversed chronological order.</p>
+		</header>
 
-		{visibleEntries.length === 0 ? (
-			<p class="mt-8 text-zinc-700">No public papers posted yet.</p>
-		) : (
-			<div class="mt-8 space-y-10">
-				{workingEntries.length ? (
-					<section>
-						<h2>Preprints and working papers</h2>
-						<ol class="mt-4 list-decimal space-y-4 pl-8 text-zinc-800 marker:text-zinc-700">
-							{workingEntries.map((e) => (
-								<li class="pl-2 leading-7">
-									{e.data.authors ? `${e.data.authors}. ` : ""}
-									{`(${publicationYear(e.data.date)}). `}
-									<span>{e.data.title}.</span>
-									{e.data.venue ? ` ${e.data.venue}.` : ""}
-									{e.data.links?.pdf ? <span> <a href={e.data.links.pdf}>[PDF]</a></span> : null}
-									{e.data.links?.arxiv ? <span> <a href={e.data.links.arxiv}>[arXiv]</a></span> : null}
-									{e.data.links?.eprint ? <span> <a href={e.data.links.eprint}>[ePrint]</a></span> : null}
-									{e.data.links?.code ? <span> <a href={e.data.links.code}>[code]</a></span> : null}
-								</li>
-							))}
-						</ol>
-					</section>
-				) : null}
-
-				{publishedEntries.length ? (
-					<>
-						<hr />
-						<section>
-							<h2>Published</h2>
-							<ol class="mt-4 list-decimal space-y-4 pl-8 text-zinc-800 marker:text-zinc-700" start={workingEntries.length + 1}>
-								{publishedEntries.map((e) => (
-									<li class="pl-2 leading-7">
-										{e.data.authors ? `${e.data.authors}. ` : ""}
-										{`(${publicationYear(e.data.date)}). `}
-										<span>{e.data.title}.</span>
-										{e.data.venue ? ` ${e.data.venue}.` : ""}
-										{e.data.links?.pdf ? <span> <a href={e.data.links.pdf}>[PDF]</a></span> : null}
-										{e.data.links?.arxiv ? <span> <a href={e.data.links.arxiv}>[arXiv]</a></span> : null}
-										{e.data.links?.eprint ? <span> <a href={e.data.links.eprint}>[ePrint]</a></span> : null}
-										{e.data.links?.code ? <span> <a href={e.data.links.code}>[code]</a></span> : null}
-									</li>
-								))}
+		<article>
+			{entries.length === 0 ? (
+				<p>No public papers posted yet.</p>
+			) : (
+				<div class="publications">
+					{years.map((year) => (
+						<>
+							<h2 class="bibliography">{year}</h2>
+							<ol class="bibliography">
+								{entries
+									.filter((e) => e.data.date.getUTCFullYear() === year)
+									.map((entry) => (
+										<BibEntry entry={entry} />
+									))}
 							</ol>
-						</section>
-					</>
-				) : null}
-			</div>
-		)}
-	</section>
+						</>
+					))}
+				</div>
+			)}
+		</article>
+	</div>
 </SiteLayout>

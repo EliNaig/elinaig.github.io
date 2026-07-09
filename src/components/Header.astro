@@ -1,9 +1,11 @@
 ---
+import SocialIcons from "./SocialIcons.astro";
 
 const pathname = Astro.url.pathname;
+const isHome = pathname === "/";
 
 const nav = [
-	{ href: "/", label: "Home" },
+	{ href: "/", label: "About" },
 	{ href: "/publications/", label: "Publications" },
 	{ href: "/cv/", label: "CV" },
 ] as const;
@@ -14,54 +16,83 @@ function isActive(href: string) {
 }
 ---
 
-<a
-	href="#content"
-	class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-sm focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:text-zinc-900 focus:shadow focus:outline-none focus:ring-2 focus:ring-sky-500 focus:ring-offset-2 focus:ring-offset-zinc-50 dark:focus:bg-zinc-900 dark:focus:text-zinc-50 dark:focus:ring-offset-zinc-950"
->
-	Skip to content
-</a>
+<a href="#content" class="skip-link">Skip to content</a>
 
-<header class="sticky top-0 z-40 border-b border-zinc-200/80 bg-white/90 backdrop-blur supports-[backdrop-filter]:bg-white/70 dark:border-zinc-700/80 dark:bg-zinc-950/90 dark:supports-[backdrop-filter]:bg-zinc-950/70">
-	<div class="container flex items-center justify-between gap-6 py-3">
-		<a href="/" class="text-sm font-semibold text-zinc-950 no-underline dark:text-zinc-50 lg:hidden">Eli Naig</a>
+<header>
+	<nav class="site-navbar" aria-label="Primary navigation">
+		<div class="page-container site-navbar-inner">
+			{isHome ? (
+				<div class="navbar-brand social">
+					<SocialIcons />
+				</div>
+			) : (
+				<a class="navbar-brand" href="/"><strong>Eli</strong> Naig</a>
+			)}
 
-		<nav class="hidden items-center gap-x-6 gap-y-2 text-sm lg:flex" aria-label="Primary navigation">
-			{nav.map((item) => (
-				<a
-					href={item.href}
-					class:list={[
-						"no-underline decoration-zinc-300 underline-offset-4 hover:underline dark:decoration-zinc-600",
-						isActive(item.href) ? "font-semibold text-zinc-950 decoration-zinc-400 dark:text-zinc-50 dark:decoration-zinc-500" : "text-zinc-700 dark:text-zinc-400",
-					]}
-				>
-					{item.label}
-				</a>
-			))}
-		</nav>
+			<div class="flex items-center gap-2">
+				<ul class="navbar-nav hidden list-none sm:flex" style="margin: 0; padding: 0;">
+					{nav.map((item) => (
+						<li>
+							<a href={item.href} class:list={["nav-link", isActive(item.href) ? "active" : ""]}>
+								{item.label}
+							</a>
+						</li>
+					))}
+				</ul>
 
-		<details class="group relative lg:hidden">
-			<summary class="flex cursor-pointer list-none items-center gap-2 rounded-sm border border-zinc-200 bg-white px-3 py-2 text-sm font-medium text-zinc-900 shadow-sm marker:hidden dark:border-zinc-700 dark:bg-zinc-900 dark:text-zinc-100">
-				<svg aria-hidden="true" viewBox="0 0 24 24" class="h-4 w-4 stroke-current" fill="none" stroke-width="2">
-					<path d="M4 7h16M4 12h16M4 17h16"></path>
-				</svg>
-				Menu
-			</summary>
-			<nav
-				class="absolute right-0 mt-2 w-56 rounded-sm border border-zinc-200 bg-white p-2 text-sm shadow-lg dark:border-zinc-700 dark:bg-zinc-900"
-				aria-label="Mobile navigation"
-			>
-				{nav.map((item) => (
-					<a
-						href={item.href}
-						class:list={[
-							"block rounded-sm px-3 py-2 no-underline hover:bg-zinc-50 dark:hover:bg-zinc-800",
-							isActive(item.href) ? "font-semibold text-zinc-950 dark:text-zinc-50" : "text-zinc-700 dark:text-zinc-400",
-						]}
-					>
-						{item.label}
-					</a>
-				))}
-			</nav>
-		</details>
-	</div>
+				<button id="light-toggle" title="Change theme" aria-label="Change theme">
+					<span id="light-toggle-system" aria-hidden="true">
+						<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+							<path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 2v16a8 8 0 0 1 0-16z" />
+						</svg>
+					</span>
+					<span id="light-toggle-dark" aria-hidden="true">
+						<svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+							<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+						</svg>
+					</span>
+					<span id="light-toggle-light" aria-hidden="true">
+						<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+							<circle cx="12" cy="12" r="4" fill="currentColor" stroke="none" />
+							<path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M19.1 4.9L17 7M7 17l-2.1 2.1" />
+						</svg>
+					</span>
+				</button>
+
+				<details class="relative sm:hidden">
+					<summary class="navbar-toggler" aria-label="Toggle navigation">
+						<span class="icon-bar top-bar"></span>
+						<span class="icon-bar middle-bar"></span>
+						<span class="icon-bar bottom-bar"></span>
+					</summary>
+					<div class="mobile-menu">
+						{nav.map((item) => (
+							<a href={item.href} class:list={["nav-link", isActive(item.href) ? "active" : ""]}>
+								{item.label}
+							</a>
+						))}
+					</div>
+				</details>
+			</div>
+		</div>
+	</nav>
 </header>
+
+<script is:inline>
+	(() => {
+		const toggle = document.getElementById("light-toggle");
+		if (!toggle) return;
+		const order = ["system", "dark", "light"];
+		toggle.addEventListener("click", () => {
+			const current = document.documentElement.getAttribute("data-theme-setting") || "system";
+			const next = order[(order.indexOf(current) + 1) % order.length];
+			localStorage.setItem("theme-setting", next);
+			document.documentElement.setAttribute("data-theme-setting", next);
+			if (next === "system") {
+				document.documentElement.removeAttribute("data-theme");
+			} else {
+				document.documentElement.setAttribute("data-theme", next);
+			}
+		});
+	})();
+</script>

@@ -4,17 +4,22 @@ import { site } from "../../lib/site";
 ---
 
 <SiteLayout title="CV" description="Curriculum vitae for Eli Naig, including research and academic experience.">
-	<section class="prose max-w-none">
-		<h1>CV</h1>
-		<p>
-			Download: <a href="/ENCV.pdf">ENCV.pdf</a> • Email: <a href={`mailto:${site.email}`}>{site.email}</a>
-		</p>
-		<p class="rounded-sm border border-zinc-200 bg-zinc-50 p-4 text-sm text-zinc-700">
-			For mobile devices, downloading the PDF is often easier than embedded viewing.
-		</p>
+	<div class="post">
+		<header class="post-header">
+			<h1 class="post-title">CV</h1>
+			<p class="desc">
+				<a href="/ENCV.pdf">Download as PDF</a> · <a href={`mailto:${site.email}`}>{site.email}</a>
+			</p>
+		</header>
 
-		<div class="mt-6 overflow-hidden rounded-sm border border-zinc-200">
-			<iframe title="CV PDF" src="/ENCV.pdf#view=FitH" class="h-[80vh] w-full"></iframe>
-		</div>
-	</section>
+		<article>
+			<p class="text-muted" style="font-size: 0.875rem;">
+				On mobile devices, downloading the PDF is often easier than embedded viewing.
+			</p>
+
+			<div style="border: 1px solid var(--global-divider-color); border-radius: 0.25rem; overflow: hidden;">
+				<iframe title="CV PDF" src="/ENCV.pdf#view=FitH" class="h-[80vh] w-full"></iframe>
+			</div>
+		</article>
+	</div>
 </SiteLayout>
