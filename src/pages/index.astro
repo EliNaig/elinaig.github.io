@@ -1,10 +1,35 @@
 ---
 import SiteLayout from "../layouts/SiteLayout.astro";
+import { getCollection, type CollectionEntry } from "astro:content";
 import { site } from "../lib/site";
 
-const facts = [
-	{ label: "Education", value: "B.S. Mathematics, Tulane University, expected 2027 · GPA 3.97 / 4.00" },
-	{ label: "Advisor", value: "Mahir Bilen Can, Tulane University", href: "https://mahirbilencan.github.io/" },
+let publications: CollectionEntry<"publications">[] = [];
+try {
+	publications = await getCollection("publications");
+} catch {
+	publications = [];
+}
+const selectedPublications = publications
+	.filter((e) => !e.data.draft && e.data.selected)
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const news = [
+	{
+		date: "Jan 2026",
+		html: `New preprint with Mahir Bilen Can, <a href="https://eprint.iacr.org/2026/665"><em>Applications of Bruhat-Chevalley-Renner Decomposition to Metric-Aware Code-Based Cryptography</em></a>, posted to the Cryptology ePrint Archive (2026/665).`,
+	},
+	{
+		date: "Dec 2025",
+		html: `Gave a research update at Tulane on NRT metrics and a quasi-circulant Niederreiter-type KEM.`,
+	},
+	{
+		date: "Jul 2025",
+		html: `Lectured on hyperplane arrangements, lattices, and their connections to coding theory at the LSU RTG Summer Math Program in Baton Rouge.`,
+	},
+	{
+		date: "Spring 2025",
+		html: `Started the Tulane Math Circle, a weekly proof-based problem-solving seminar.`,
+	},
 ];
 
 const structuredData = {
@@ -29,71 +54,80 @@ const structuredData = {
 		},
 	],
 };
+
+function publicationYear(date: Date) {
+	return String(date.getUTCFullYear());
+}
 ---
 
 <SiteLayout
 	title="Home"
-	description="Building post-quantum cryptography from algebraic theory to reproducible implementation."
+	description="Eli Naig is a mathematics undergraduate at Tulane University working on algebraic coding theory and post-quantum cryptography."
 	structuredData={structuredData}
 >
 	<div class="space-y-12">
 		<section class="max-w-3xl">
-			<p class="mb-4 text-sm uppercase tracking-[0.18em] text-zinc-500">Mathematics • Coding theory • Cryptography</p>
-			<h1>
-				I study algebraic coding theory and post-quantum cryptography.
-			</h1>
-			<p class="mt-6 max-w-2xl text-lg leading-8 text-zinc-700">
-				I’m {site.name}, a mathematics undergraduate at {site.affiliation}. My work centers on the metric and algebraic
-				structure of code families and on building reproducible systems for cryptographic research.
-			</p>
-			<div class="mt-8 flex flex-wrap gap-3">
-				<a class="btn-primary" href="/publications/">Publications</a>
-				<a class="btn-secondary" href="/cv/">Read CV</a>
+			<h1>Eli Naig</h1>
+			<div class="prose mt-6 max-w-2xl">
+				<p>
+					I'm a mathematics undergraduate at {site.affiliation}, where I work with
+					<a href="https://mahirbilencan.github.io/">Mahir Bilen Can</a> on algebraic coding theory and post-quantum
+					cryptography. Lately I've been thinking about codes in metrics other than the Hamming metric, and about what
+					the algebraic structure of a code family means for code-based cryptosystems. Our first paper together is a
+					preprint on the <a href="https://eprint.iacr.org/2026/665">Cryptology ePrint Archive</a>.
+				</p>
+				<p>
+					I'm also interested in algebraic geometry and number theory, mostly as tools for the questions above, and I
+					run the Tulane Math Circle, a weekly proof-based problem-solving seminar.
+				</p>
+				<p>
+					Outside of math I read scientific biography and computing history; recent favorites are <em>Surely You're
+					Joking, Mr. Feynman!</em>, <em>The Bit Player</em>, and <em>The Imitation Game</em>. The best way to reach me
+					is by email at <a href={`mailto:${site.email}`}>{site.email}</a>. My CV is <a href="/cv/">here</a>.
+				</p>
 			</div>
 		</section>
 
 		<section class="section">
-			<dl class="grid gap-8 sm:grid-cols-2">
-				{facts.map((fact) => (
-					<div>
-						<dt class="text-sm font-medium uppercase tracking-[0.16em] text-zinc-500">{fact.label}</dt>
-						<dd class="mt-3 text-sm leading-6 text-zinc-700">
-							{fact.href ? <a href={fact.href}>{fact.value}</a> : fact.value}
-						</dd>
+			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
+				<h2>News</h2>
+				<dl class="min-w-0 space-y-4">
+					{news.map((item) => (
+						<div class="grid gap-x-6 gap-y-1 sm:grid-cols-[6.5rem_minmax(0,1fr)]">
+							<dt class="text-sm leading-7 text-zinc-500">{item.date}</dt>
+							<dd class="min-w-0 leading-7 text-zinc-700" set:html={item.html} />
+						</div>
+					))}
+				</dl>
+			</div>
+		</section>
+
+		{selectedPublications.length > 0 ? (
+			<section class="section">
+				<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
+					<h2>Selected publications</h2>
+					<div class="min-w-0">
+						<ul class="space-y-4">
+							{selectedPublications.map((e) => (
+								<li class="leading-7 text-zinc-800">
+									{e.data.authors ? `${e.data.authors}. ` : ""}
+									{`(${publicationYear(e.data.date)}). `}
+									<span>{e.data.title}.</span>
+									{e.data.venue ? ` ${e.data.venue}.` : ""}
+									{e.data.links?.pdf ? <span> <a href={e.data.links.pdf}>[PDF]</a></span> : null}
+									{e.data.links?.arxiv ? <span> <a href={e.data.links.arxiv}>[arXiv]</a></span> : null}
+									{e.data.links?.eprint ? <span> <a href={e.data.links.eprint}>[ePrint]</a></span> : null}
+									{e.data.links?.code ? <span> <a href={e.data.links.code}>[code]</a></span> : null}
+								</li>
+							))}
+						</ul>
+						<p class="mt-6 text-sm">
+							<a href="/publications/">All publications</a>
+						</p>
 					</div>
-				))}
-			</dl>
-		</section>
-
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Research focus</h2>
-				<div class="prose max-w-none">
-					<p>
-						I work on algebraic methods in coding theory and cryptography.
-					</p>
-					<ul>
-						<li><strong>Algebraic coding theory:</strong> structural and metric properties of code families.</li>
-						<li><strong>Algebraic geometry:</strong> foundations and examples that inform code structure.</li>
-						<li><strong>Post-quantum cryptography:</strong> code-based KEM design and analysis.</li>
-						<li><strong>Number theory and cryptography:</strong> mathematical tools for secure constructions.</li>
-						<li><strong>Reproducible systems:</strong> benchmark harnesses, conformance vectors, and experiment pipelines.</li>
-					</ul>
 				</div>
-			</div>
-		</section>
-
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Outside the technical work</h2>
-				<div class="prose max-w-none">
-					<p>
-						I’m drawn to scientific biography and computing history; favorites include <em>Surely You're Joking, Mr.
-						Feynman!</em>, <em>The Bit Player</em>, and <em>The Imitation Game</em>.
-					</p>
-				</div>
-			</div>
-		</section>
+			</section>
+		) : null}
 
 		<section class="section">
 			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
@@ -139,22 +173,6 @@ const structuredData = {
 							</p>
 						</div>
 					</article>
-				</div>
-			</div>
-		</section>
-
-		<section class="section">
-			<div class="grid gap-x-8 gap-y-4 lg:grid-cols-[11rem_minmax(0,1fr)]">
-				<h2>Collaborate</h2>
-				<div class="min-w-0">
-					<p class="max-w-2xl text-zinc-700">
-						I’m open to research collaboration in coding theory and post-quantum cryptography, seminar talks and technical
-						discussions, project work, and graduate-level opportunities in mathematics.
-					</p>
-					<p class="mt-4 max-w-2xl text-zinc-700">
-						If you’re reaching out about any of these, <a href={`mailto:${site.email}`}>email me</a>. A couple of sentences on
-						context and timeline help.
-					</p>
 				</div>
 			</div>
 		</section>

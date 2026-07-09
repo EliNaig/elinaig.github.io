@@ -27,7 +27,7 @@ const publicationJsonLd = releasedEntries.map((entry) => ({
 }));
 
 function publicationYear(date: Date) {
-	return date.toLocaleDateString(undefined, { year: "numeric" });
+	return String(date.getUTCFullYear());
 }
 ---
 
