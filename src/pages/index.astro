@@ -35,7 +35,11 @@ const structuredData = {
 				"@type": "CollegeOrUniversity",
 				name: site.affiliation,
 			},
-			sameAs: [site.social.github, site.social.linkedin, site.social.orcid].filter(Boolean),
+			sameAs: [
+				site.social.github,
+				site.social.linkedin,
+				site.social.orcid,
+			].filter(Boolean),
 		},
 		{
 			"@type": "WebSite",
@@ -54,7 +58,9 @@ const structuredData = {
 	<div class="post">
 		<header class="post-header">
 			<h1 class="post-title"><strong>Eli</strong> Naig</h1>
-			<p class="desc">Mathematics @ {site.affiliation} • coding theory • post-quantum cryptography</p>
+			<p class="desc">
+				Mathematics @ {site.affiliation} • coding theory • post-quantum cryptography
+			</p>
 		</header>
 
 		<article>
@@ -79,16 +85,22 @@ const structuredData = {
 
 			<div class="clearfix">
 				<p>
-					I'm a mathematics undergraduate at {site.affiliation}, where I work
-					with <a href="https://mahirbilencan.github.io/">Mahir Bilen Can</a> on algebraic coding theory and post-quantum
-					cryptography. Lately I've been thinking about codes in metrics other than the Hamming metric, and about what
-					the algebraic structure of a code family means for code-based cryptosystems. Our first paper together is a
-					preprint on the <a href="https://eprint.iacr.org/2026/665">Cryptology ePrint Archive</a>.
+					I'm a mathematics undergraduate at {site.affiliation},
+					working with <a href="https://mahirbilencan.github.io/"
+						>Mahir Bilen Can</a
+					> on algebraic coding theory and code-based post-quantum cryptography.
+					I also co-founded <a href="https://www.qsparclabs.com/"
+						>QSPARC Labs</a
+					>, where we build software based on this research.
 				</p>
 				<p>
-					Outside of math I read scientific biography and computing history; recent favorites are <em>Surely You're
-					Joking, Mr. Feynman!</em>, <em>The Bit Player</em>, and <em>The Imitation Game</em>. The best way to reach me
-					is by email at <a href={`mailto:${site.email}`}>{site.email}</a>. My CV is <a href="/cv/">here</a>.
+					This summer I am at the University of South Carolina's NSF
+					REU in quantum information science, working with <a
+						href="https://cse.sc.edu/~fenner/">Stephen Fenner</a
+					> on quantum position verification. I am applying to PhD programs
+					for Fall 2027. The best way to reach me is by email at <a
+						href={`mailto:${site.email}`}>{site.email}</a
+					>; my CV is <a href="/cv/">here</a>.
 				</p>
 			</div>
 
@@ -96,32 +108,43 @@ const structuredData = {
 			<div class="news">
 				<table>
 					<tbody>
-						{news.map((item) => (
-							<tr>
-								<th scope="row">{item.date}</th>
-								<td set:html={item.html} />
-							</tr>
-						))}
+						{
+							news.map((item) => (
+								<tr>
+									<th scope="row">{item.date}</th>
+									<td set:html={item.html} />
+								</tr>
+							))
+						}
 					</tbody>
 				</table>
 			</div>
 
-			{selectedPublications.length > 0 ? (
-				<>
-					<h2><a href="/publications/" style="color: inherit;">Selected Publications</a></h2>
-					<div class="publications">
-						<ol class="bibliography">
-							{selectedPublications.map((entry) => (
-								<BibEntry entry={entry} />
-							))}
-						</ol>
-					</div>
-				</>
-			) : null}
+			{
+				selectedPublications.length > 0 ? (
+					<>
+						<h2>
+							<a href="/publications/" style="color: inherit;">
+								Selected Publications
+							</a>
+						</h2>
+						<div class="publications">
+							<ol class="bibliography">
+								{selectedPublications.map((entry) => (
+									<BibEntry entry={entry} />
+								))}
+							</ol>
+						</div>
+					</>
+				) : null
+			}
 
 			<h2>Leadership</h2>
 			<div>
-				<div class="flex flex-col gap-6 sm:flex-row sm:items-start" style="margin-bottom: 2rem;">
+				<div
+					class="flex flex-col gap-6 sm:flex-row sm:items-start"
+					style="margin-bottom: 2rem;"
+				>
 					<img
 						src="/images/tulane-scioly-logo.png"
 						alt="Tulane Science Olympiad logo"
@@ -129,15 +152,29 @@ const structuredData = {
 						loading="lazy"
 					/>
 					<div>
-						<h5>Co-Founder and Vice President, Tulane Science Olympiad</h5>
-						<p class="text-muted" style="margin-bottom: 0.5rem;">2024-Present</p>
-						<p>
-							Co-founded Tulane’s first Science Olympiad invitational and helped drive rapid growth in Science Olympiad
-							at Tulane and across Louisiana. Work includes statewide outreach, tournament organizing, volunteer
-							coordination, campus-wide space allocation across 60+ classrooms and laboratories, and development of the
-							official competition website, all in support of an effort to expand active Science Olympiad teams statewide.
+						<h5>
+							Co-Founder and Vice President, Tulane Science
+							Olympiad
+						</h5>
+						<p class="text-muted" style="margin-bottom: 0.5rem;">
+							2024-Present
 						</p>
-						<p><a href="https://www.tulanescioly.org/">tulanescioly.org</a></p>
+						<p>
+							Co-founded Tulane’s first Science Olympiad
+							invitational and helped drive rapid growth in
+							Science Olympiad at Tulane and across Louisiana.
+							Work includes statewide outreach, tournament
+							organizing, volunteer coordination, campus-wide
+							space allocation across 60+ classrooms and
+							laboratories, and development of the official
+							competition website, all in support of an effort to
+							expand active Science Olympiad teams statewide.
+						</p>
+						<p>
+							<a href="https://www.tulanescioly.org/"
+								>tulanescioly.org</a
+							>
+						</p>
 					</div>
 				</div>
 				<div class="flex flex-col gap-6 sm:flex-row sm:items-start">
@@ -149,12 +186,19 @@ const structuredData = {
 					/>
 					<div>
 						<h5>President, Tulane Math Club</h5>
-						<p class="text-muted" style="margin-bottom: 0.5rem;">2026-2027</p>
+						<p class="text-muted" style="margin-bottom: 0.5rem;">
+							2026-2027
+						</p>
 						<p>
-							During the 2026-2027 academic year, I lead club programming, coordination, student engagement, and
+							During the 2026-2027 academic year, I lead club
+							programming, coordination, student engagement, and
 							stewardship of the organization website.
 						</p>
-						<p><a href="https://tulanemathsociety.github.io/">tulanemathsociety.github.io</a></p>
+						<p>
+							<a href="https://tulanemathsociety.github.io/"
+								>tulanemathsociety.github.io</a
+							>
+						</p>
 					</div>
 				</div>
 			</div>
@@ -163,7 +207,9 @@ const structuredData = {
 				<div class="contact-icons">
 					<SocialIcons />
 				</div>
-				<div class="contact-note">The best way to reach me is by email.</div>
+				<div class="contact-note">
+					The best way to reach me is by email.
+				</div>
 			</div>
 		</article>
 	</div>
