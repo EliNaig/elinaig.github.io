@@ -73,6 +73,13 @@ const structuredData = {
 					<p>{site.affiliation}</p>
 					<br />
 					<p><a href={`mailto:${site.email}`}>{site.email}</a></p>
+					<p>
+						<a
+							href={site.pgpKeyPath}
+							title={`Fingerprint: ${site.pgpFingerprint}`}
+							>PGP key</a
+						> ({site.pgpKeyType}, for encrypted email)
+					</p>
 				</div>
 			</div>
 

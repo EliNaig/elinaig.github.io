@@ -3,7 +3,10 @@ export const site = {
 	url: "https://elinaig.github.io",
 	description:
 		"Mathematics student and undergraduate researcher (algebraic coding theory); interests in algebraic geometry and cryptography.",
-	email: "enaig@tulane.edu",
+	email: "elicoe05@gmail.com",
+	pgpKeyPath: "/elinaig-public-key.asc",
+	pgpKeyType: "RSA 4096",
+	pgpFingerprint: "5A96 DE4E 20FB 9EA6 0682  CEA7 9438 C9B0 2F6D E42C",
 	location: "St. Louis, MO",
 	affiliation: "Tulane University",
 	profileImage: "/images/EliSG-2400.jpg",
