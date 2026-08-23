@@ -57,11 +57,23 @@ on:
       - "!README.md"
   workflow_dispatch:
 
+# GitHub Pages on this repo is configured as "GitHub Actions" (build_type: workflow),
+# so the site is published straight from main as an artifact. Upstream al-folio
+# instead force-pushes _site to a gh-pages branch and serves that; see
+# docs/INSTALL.md#enabling-automatic-deployment. Switching back means restoring
+# `permissions: contents: write` and the JamesIves/github-pages-deploy-action step,
+# then repointing Settings -> Pages at the gh-pages branch.
 permissions:
-  contents: write
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     # available images: https://github.com/actions/runner-images#available-images
     runs-on: ubuntu-latest
     steps:
@@ -101,8 +113,19 @@ jobs:
         run: |
           npm install -g purgecss
           purgecss -c purgecss.config.js
-      - name: Deploy 🚀
-        if: github.event_name != 'pull_request'
-        uses: JamesIves/github-pages-deploy-action@v4
+      - name: Upload Pages artifact 📤
+        uses: actions/upload-pages-artifact@v3
         with:
-          folder: _site
+          path: _site
+
+  deploy:
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages 🚀
+        id: deployment
+        uses: actions/deploy-pages@v4
