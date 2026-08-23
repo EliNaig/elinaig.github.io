@@ -1,11 +1,30 @@
-# Node / Astro
+_site
+.bundle
+.DS_store
+.idea
+.jekyll-cache
+.jekyll-metadata
+.ruby-version
+.sass-cache
+.tweet-cache
+.venv
+assets/libs/
+assets/rendercv/rendercv_output/*.typ
+al-folio-upgrade-report.md
 node_modules/
-dist/
-.astro/
-.DS_Store
+output/playwright/
+test-results/
+vendor
+
+# Python bytecode from bin/ helper scripts
+__pycache__/
+*.pyc
 
 # Local archive of original source assets
 archive/
 
 # Codex-generated audit output
 codex_website_audit_output/
+
+# macOS
+.DS_Store

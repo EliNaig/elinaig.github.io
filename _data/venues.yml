@@ -1,0 +1,8 @@
+# Venue badges shown in the left column of each bibliography entry.
+# The key must match the `abbr` field of the bib entry in _bibliography/papers.bib.
+arXiv:
+  url: https://arxiv.org/
+  color: "#b31b1b"
+ePrint:
+  url: https://eprint.iacr.org/
+  color: "#3a6ea5"

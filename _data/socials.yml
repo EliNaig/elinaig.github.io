@@ -1,0 +1,7 @@
+# this file contains the social media links and usernames of the author
+# the socials will be displayed in the order they are defined here
+# for more information, please refer to the documentation of jekyll-socials plugin: https://github.com/george-gca/jekyll-socials
+email: elicoe05@gmail.com # your email address
+orcid_id: 0009-0003-9324-2382 # your ORCID iD
+github_username: elinaig # your GitHub user name
+linkedin_username: eli-naig # your LinkedIn user name
