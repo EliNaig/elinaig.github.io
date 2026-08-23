@@ -10,8 +10,13 @@
 
 /* Configure your design tokens BEFORE loading any of your partials.
    Make sure `_sass/_variables.scss` declares `$max-content-width: 72rem !default;` */
+// $purple-color is the accent slot the theme reads for --global-theme-color,
+// --global-hover-color and the inline-code background tint (_themes.scss:10,13,14).
+// Retinting it here keeps all three consistent without shadowing _variables.scss
+// or _themes.scss. Light mode only; dark mode uses $cyan-color and is already blue.
 @use "variables" with (
-  $max-content-width: {{site.max_width | default: "930px"}}
+  $max-content-width: {{site.max_width | default: "930px"}},
+  $purple-color: #0069c9
 );
 
 /* Your project partials — convert these files to `@use "variables";`
