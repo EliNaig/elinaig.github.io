@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="public/images/EliSG-2400.jpg" alt="Eli Naig" width="160" />
+<img src="assets/img/prof_pic.jpg" alt="Eli Naig" width="160" />
 
 # Eli Naig
 
@@ -18,14 +18,15 @@ and post-quantum cryptography, advised by [Mahir Bilen Can](https://mahirbilenca
 ---
 
 This repository contains the source for my personal academic website:
-research, publications, talks, teaching, and writing.
+research, publications, and CV.
 
 ## Built With
 
-[![Astro](https://img.shields.io/badge/Astro-5-BC52EE.svg?logo=astro&logoColor=white)](https://astro.build/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-06B6D4.svg?logo=tailwindcss&logoColor=white)](https://tailwindcss.com/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-3178C6.svg?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Jekyll](https://img.shields.io/badge/Jekyll-4-CC0000.svg?logo=jekyll&logoColor=white)](https://jekyllrb.com/)
+[![Ruby](https://img.shields.io/badge/Ruby-3.3-CC342D.svg?logo=ruby&logoColor=white)](https://www.ruby-lang.org/)
+[![al-folio](https://img.shields.io/badge/theme-al--folio-blue.svg)](https://github.com/alshedivat/al-folio)
 
 ## License
 
-Code is released under the [MIT License](LICENSE).
+Built on the [al-folio](https://github.com/alshedivat/al-folio) theme, MIT
+licensed (see [LICENSE](LICENSE)). Site content is my own.

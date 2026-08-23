@@ -1,0 +1,54 @@
+/******************************************************************************
+ * Site-specific styles, layered on top of al-folio.
+ * Loaded from the local override of assets/css/main.scss.
+ ******************************************************************************/
+
+// Always reserve the scrollbar gutter. Without this, a page tall enough to
+// scroll (/cv/, with its embedded PDF) is ~15px narrower than a short one
+// (/publications/), so the centered navbar and content visibly shift sideways
+// when moving between pages.
+html {
+  scroll-behavior: smooth;
+  scrollbar-gutter: stable;
+}
+
+// The theme offers two footer modes: `footer_fixed: true` pins the footer to the
+// viewport (always visible, eating screen space), and `false` leaves it in flow,
+// which strands it mid-screen on short pages like /publications/. This keeps the
+// in-flow footer but pushes it to the bottom of the viewport when the content is
+// shorter than one screen.
+body.sticky-bottom-footer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  > footer.sticky-bottom {
+    margin-top: auto;
+  }
+}
+
+// Small print, used for dates and secondary notes.
+.text-sm {
+  color: var(--global-text-color-light);
+  font-size: 0.875rem;
+}
+
+// Clears the floated profile photo so a following section starts below it at
+// full width, instead of being squeezed into the column beside it.
+.clear-both {
+  clear: both;
+}
+
+// The theme emits bibliography buttons in a fixed order (arXiv before Bib, but
+// HTML and PDF after it), so entries linked differently end up with the Bib
+// button in different positions. Order them so the links come first and Bib is
+// always last, whatever combination an entry declares.
+.publications .links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  .bibtex {
+    order: 1;
+  }
+}

@@ -18,7 +18,7 @@
 
 ## Quality gate before merge
 
-- `npm run build`
-- `npm run check:content`
-- `npm run check:links`
-
+- `bundle exec jekyll build` (builds clean, no Liquid warnings)
+- `npm run lint:prettier` (`npx prettier . --write` fixes)
+- `bundle exec al-folio upgrade overrides audit` (only if a gem-owned file was shadowed)
+- Link checking runs in CI: `.github/workflows/broken-links.yml` and `broken-links-site.yml`
