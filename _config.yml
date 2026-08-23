@@ -223,7 +223,6 @@ exclude:
   - archive/
   - codex_website_audit_output/
   - requirements.txt
-  - test/
   - al-folio-upgrade-report.md
   - bin/
   - CLAUDE.md
