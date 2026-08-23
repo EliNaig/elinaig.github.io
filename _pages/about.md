@@ -45,10 +45,10 @@ This summer I am at the University of South Carolina's NSF REU in quantum inform
 ## Leadership
 
 <div class="row mb-4">
-  <div class="col-sm-2">
+  <div class="col-sm-2 d-none d-sm-block">
     {% include figure.liquid path="assets/img/tulane-scioly-logo.png" class="img-fluid" alt="Tulane Science Olympiad logo" %}
   </div>
-  <div class="col-sm-10 mt-3 mt-sm-0">
+  <div class="col-sm-10 mt-3 mt-md-0">
     <h5>Co-Founder and Vice President, Tulane Science Olympiad</h5>
     <p class="text-sm">2024-Present</p>
     <p>
@@ -62,10 +62,10 @@ This summer I am at the University of South Carolina's NSF REU in quantum inform
 </div>
 
 <div class="row">
-  <div class="col-sm-2">
+  <div class="col-sm-2 d-none d-sm-block">
     {% include figure.liquid path="assets/img/tulane-math-club-logo.png" class="img-fluid" alt="Tulane Math Club logo" %}
   </div>
-  <div class="col-sm-10 mt-3 mt-sm-0">
+  <div class="col-sm-10 mt-3 mt-md-0">
     <h5>President, Tulane Math Club</h5>
     <p class="text-sm">2026-2027</p>
     <p>
