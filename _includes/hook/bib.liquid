@@ -1,0 +1,11 @@
+{% comment %}
+  Theme hook, called from al_folio_core's bib.liquid after `entrytype` is
+  assembled and before the periodical line is composed.
+
+  `additional_info` is passed through `markdownify`, which leaves a trailing
+  newline behind after the surrounding <p> tags are removed. The template then
+  appends ", " for the date, so the venue line renders as
+  "arXiv:2608.00930 [quant-ph] , Aug 2026". Stripping puts the comma back
+  against the venue.
+{% endcomment %}
+{% assign entrytype = entrytype | strip %}
