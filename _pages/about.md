@@ -32,7 +32,7 @@ latest_posts:
 
 I'm a mathematics undergraduate at Tulane University, working with [Mahir Bilen Can](https://mahirbilencan.github.io/) on algebraic coding theory and code-based post-quantum cryptography. I also co-founded [QSPARC Labs](https://www.qsparclabs.com/), where we build software based on this research.
 
-This past summer I was at the University of South Carolina's NSF REU in quantum information science, working with [Stephen Fenner](https://cse.sc.edu/~fenner/) on quantum position verification. I am applying to PhD programs for Fall 2027. The best way to reach me is by email at [elicoe05@gmail.com](mailto:elicoe05@gmail.com); my CV is [here]({{ '/cv/' | relative_url }}).
+This past summer I was at the University of South Carolina's NSF REU in quantum information science, working with [Stephen Fenner](https://cse.sc.edu/~fenner/) on quantum position verification. The best way to reach me is by email at [elicoe05@gmail.com](mailto:elicoe05@gmail.com); my CV is [here]({{ '/cv/' | relative_url }}).
 
 <div class="clear-both"></div>
 
